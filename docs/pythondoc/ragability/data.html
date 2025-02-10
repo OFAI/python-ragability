@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>ragability.data API documentation</title>
+<meta name="description" content="Module for functions related to reading or writing files and checking file contents.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ragability.data</code></h1>
+</header>
+<section id="section-intro">
+<p>Module for functions related to reading or writing files and checking file contents.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ragability.data.read_file"><code class="name flex">
+<span>def <span class="ident">read_file</span></span>(<span>input_file)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_file(input_file):
+    &#34;&#34;&#34;
+    Read the input file into memory. Depending on the file extension, the input file is either a jsonl file
+    with one json dict per line, a json file which contains the json/hjson representation of an array of dicts, or
+    a YAML file containing an array of dicts. Return the list of dicts.
+
+    We only check for json and yaml that the data read is an array, and we check for each entry in the array
+    that it is a dict.
+
+    :param input_file: file to read
+    :return: array of dicts
+    &#34;&#34;&#34;
+    data = []
+    if input_file.endswith(&#34;.jsonl&#34;):
+        with open(input_file, &#39;r&#39;) as f:
+            linenr = 0
+            for line in f:
+                linenr += 1
+                # ignore empty lines
+                if not line.strip():
+                    continue
+                try:
+                    entry = json.loads(line)
+                except json.JSONDecodeError as e:
+                    raise Exception(f&#34;Error: Could not decode JSON line in file {input_file}, line {linenr}: {line}\nError: {e}&#34;)
+                if not isinstance(entry, dict):
+                    raise Exception(f&#34;Error: Entry in line {linenr} is not a dict&#34;)
+                data.append(entry)
+    elif input_file.endswith(&#34;.json&#34;):
+        with open(input_file, &#39;r&#39;) as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError as e:
+                raise Exception(f&#34;Error: Could not decode JSON file {input_file}: {e}&#34;)
+            if not isinstance(data, list):
+                raise Exception(f&#34;Error: JSON file {input_file} does not contain an array&#34;)
+            for idx, entry in enumerate(data):
+                if not isinstance(entry, dict):
+                    raise Exception(f&#34;Error: Entry {idx+1} in JSON file {input_file} is not a dict: {entry}&#34;)
+    elif input_file.endswith(&#34;.hjson&#34;):
+        with open(input_file, &#39;r&#39;) as f:
+            try:
+                data = hjson.load(f)
+            except json.JSONDecodeError as e:
+                raise Exception(f&#34;Error: Could not decode HJSON file {input_file}: {e}&#34;)
+            if not isinstance(data, list):
+                raise Exception(f&#34;Error: HJSON file {input_file} does not contain an array&#34;)
+            for idx, entry in enumerate(data):
+                if not isinstance(entry, dict):
+                    raise Exception(f&#34;Error: Entry {idx+1} in HJSON file {input_file} is not a dict: {entry}&#34;)
+    elif input_file.endswith(&#34;.yaml&#34;):
+        with open(input_file, &#39;r&#39;) as f:
+            try:
+                data = yaml.safe_load(f)
+            except yaml.YAMLError as e:
+                raise Exception(f&#34;Error: Could not decode YAML file {input_file}: {e}&#34;)
+            if not isinstance(data, list):
+                raise Exception(f&#34;Error: JSON file {input_file} does not contain an array&#34;)
+            for idx, entry in enumerate(data):
+                if not isinstance(entry, dict):
+                    raise Exception(f&#34;Error: Entry {idx+1} in ZAML file {input_file} is not a dict: {entry}&#34;)
+    else:
+        raise Exception(f&#34;Error: Unknown file extension for input file {input_file}&#34;)
+    return data</code></pre>
+</details>
+<div class="desc"><p>Read the input file into memory. Depending on the file extension, the input file is either a jsonl file
+with one json dict per line, a json file which contains the json/hjson representation of an array of dicts, or
+a YAML file containing an array of dicts. Return the list of dicts.</p>
+<p>We only check for json and yaml that the data read is an array, and we check for each entry in the array
+that it is a dict.</p>
+<p>:param input_file: file to read
+:return: array of dicts</p></div>
+</dd>
+<dt id="ragability.data.read_input_file"><code class="name flex">
+<span>def <span class="ident">read_input_file</span></span>(<span>input_file)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_input_file(input_file):
+    &#34;&#34;&#34;
+    Read the input file into memory. Depending on the file extension, the input file is either a jsonl file
+    with one json dict per line, a json/hjson file which contains the json representation of an array of dicts, or
+    a YAML file containing an array of dicts. Each of the dicts has the following fields:
+    - qid: the query id, a unique identifier for the query, a string
+    - facts: the fact to query: this can be a string or a list of strings. Currently, list of strings are
+         concatenated with newlines
+    - query: the query to run: this must be a string. The string may contain arbitrary whitespace, but
+         newlines are must be escaped with a backslash
+    - checks: a list of checks that can be run on the response, where each check is a dictionary with
+            the following fields:
+            - query: the query to use for analyzing the response
+            - function: the function to use for analyzing the response to the checking query. The function should
+                return a score between 0 and 1
+            - OTHERFIELDS: all other fields are passed as arguments to the function
+    We first read in the whole file, depending on file format, then check all the entries we got for the
+    required fields and their types.
+    &#34;&#34;&#34;
+    # check the file extension and read the file accordingly
+
+    # Now check the fields and their types:
+    nentry = 0
+    data = read_file(input_file)
+    for entry in data:
+        nentry += 1
+        # check the fields
+        if &#39;qid&#39; not in entry:
+            raise ValueError(f&#34;Error: Missing &#39;qid&#39; field in entry: {nentry}&#34;)
+        if &#39;facts&#39; not in entry:
+            logger.debug(f&#34;Missing &#39;facts&#39; field in entry: {nentry}&#34;)
+        facts = entry.get(&#39;facts&#39;)
+        if &#39;query&#39; not in entry:
+            raise ValueError(f&#34;Error: Missing &#39;query&#39; field in entry: {nentry}&#34;)
+        if &#39;checks&#39; not in entry:
+            logger.warning(f&#34;Missing &#39;checks&#39; field in entry: {nentry}&#34;)
+        # check the type of the fields
+        if facts is not None and not isinstance(facts, (str, list)):
+            raise ValueError(f&#34;Error: &#39;facts&#39; field must be a string or a list of strings in entry: {nentry}&#34;)
+        if not isinstance(entry[&#39;query&#39;], str):
+            raise ValueError(f&#34;Error: &#39;query&#39; field must be a string in entry: {nentry}&#34;)
+        if &#34;checks&#34; in entry:
+            if not isinstance(entry[&#39;checks&#39;], list):
+                raise ValueError(f&#34;Error: &#39;checks&#39; field must be a list in entry: {nentry}&#34;)
+            for check in entry[&#39;checks&#39;]:
+                if not isinstance(check, dict):
+                    raise ValueError(f&#34;Error: Check in entry {nentry} is not a dict&#34;)
+                if not &#39;query&#39; in check:
+                    logger.debug(f&#34;Missing &#39;query&#39; field in check in entry: {nentry}&#34;)
+                elif not isinstance(check[&#39;query&#39;], str):
+                    raise ValueError(f&#34;Error: &#39;query&#39; field in check must be a string in entry: {nentry}&#34;)
+                if not &#39;func&#39; in check:
+                    # raise ValueError(f&#34;Error: Missing &#39;func&#39; field in check in entry: {nentry}&#34;)
+                    logger.warning(f&#34;Missing &#39;func&#39; field in check in entry: {nentry}&#34;)
+                elif not isinstance(check[&#39;func&#39;], (str, dict)):
+                    raise ValueError(f&#34;Error: &#39;func&#39; field in check must be a string or dictionary in entry: {nentry}&#34;)
+                elif isinstance(check[&#39;func&#39;], dict):
+                    if not &#39;name&#39; in check[&#39;function&#39;]:
+                        raise ValueError(f&#34;Error: Missing &#39;name&#39; field in func in entry: {nentry}&#34;)
+                    if not isinstance(check[&#39;func&#39;][&#39;name&#39;], str):
+                        raise ValueError(f&#34;Error: &#39;name&#39; field in func must be a string in entry: {nentry}&#34;)
+    return data</code></pre>
+</details>
+<div class="desc"><p>Read the input file into memory. Depending on the file extension, the input file is either a jsonl file
+with one json dict per line, a json/hjson file which contains the json representation of an array of dicts, or
+a YAML file containing an array of dicts. Each of the dicts has the following fields:
+- qid: the query id, a unique identifier for the query, a string
+- facts: the fact to query: this can be a string or a list of strings. Currently, list of strings are
+concatenated with newlines
+- query: the query to run: this must be a string. The string may contain arbitrary whitespace, but
+newlines are must be escaped with a backslash
+- checks: a list of checks that can be run on the response, where each check is a dictionary with
+the following fields:
+- query: the query to use for analyzing the response
+- function: the function to use for analyzing the response to the checking query. The function should
+return a score between 0 and 1
+- OTHERFIELDS: all other fields are passed as arguments to the function
+We first read in the whole file, depending on file format, then check all the entries we got for the
+required fields and their types.</p></div>
+</dd>
+<dt id="ragability.data.read_prompt_file"><code class="name flex">
+<span>def <span class="ident">read_prompt_file</span></span>(<span>prompt_file)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_prompt_file(prompt_file):
+    &#34;&#34;&#34;
+    Read the prompt file into memory: depending on the extension this is either a jason line file (&#34;.jsonl&#34;) with
+    a dict in each line, a json file containing an array of dicts or a yaml file containing an array of dicts. each line is a prompt to use for the queries. The prompt file must contain
+    We first read the complete file into an array of dicts, then check the format of all the entries.
+    Each dictionary should have the following fields:
+    - system: the system prompt to use for the queries, a string or null/missing to not use a system prompt
+    - user: the user prompt to use for the queries, a string or null/missing to not use a user prompt
+    - assistant: the assistant prompt to use for the queries, a string or null/missing to not use an assistant prompt
+    - pid: the prompt id, a unique identifier for the prompt, a string
+    At least one of the system, user or assistant fields must be non-null.
+    &#34;&#34;&#34;
+    data = read_file(prompt_file)
+
+    for idx, entry in enumerate(data):
+        # check the fields
+        if not &#39;system&#39; in entry and not &#39;user&#39; in entry and not &#39;assistant&#39; in entry:
+            raise ValueError(f&#34;Error: Missing &#39;system&#39;, &#39;user&#39; or &#39;assistant&#39; field in line: {entry}&#34;)
+        # if all of the system, user and assistant fields are only whitespace, show an error message
+        if &#39;system&#39; in entry and not entry[&#39;system&#39;].strip() and &#39;user&#39; in entry and not entry[&#39;user&#39;].strip() and &#39;assistant&#39; in entry and not entry[&#39;assistant&#39;].strip():
+            raise ValueError(f&#34;Error: All of &#39;system&#39;, &#39;user&#39; and &#39;assistant&#39; fields are only whitespace in line: {entry}&#34;)
+        # set all missing fields of system, user and assistant to the empty string, then check that all fields
+        # are strings
+        if not &#39;system&#39; in entry:
+            entry[&#39;system&#39;] = &#34;&#34;
+        if not &#39;user&#39; in entry:
+            entry[&#39;user&#39;] = &#34;&#34;
+        if not &#39;assistant&#39; in entry:
+            entry[&#39;assistant&#39;] = &#34;&#34;
+        if not isinstance(entry[&#39;system&#39;], str):
+            raise ValueError(f&#34;Error: &#39;system&#39; field must be a string in line: {entry}&#34;)
+        if not isinstance(entry[&#39;user&#39;], str):
+            raise ValueError(f&#34;Error: &#39;user&#39; field must be a string in line: {entry}&#34;)
+        if not isinstance(entry[&#39;assistant&#39;], str):
+            raise ValueError(f&#34;Error: &#39;assistant&#39; field must be a string in line: {entry}&#34;)
+        if not &#39;pid&#39; in entry:
+            raise ValueError(f&#34;Error: Missing &#39;pid&#39; field in line: {entry}&#34;)
+        if not isinstance(entry[&#39;pid&#39;], str):
+            raise ValueError(f&#34;Error: &#39;pid&#39; field must be a string in line: {entry}&#34;)
+    return data</code></pre>
+</details>
+<div class="desc"><p>Read the prompt file into memory: depending on the extension this is either a jason line file (".jsonl") with
+a dict in each line, a json file containing an array of dicts or a yaml file containing an array of dicts. each line is a prompt to use for the queries. The prompt file must contain
+We first read the complete file into an array of dicts, then check the format of all the entries.
+Each dictionary should have the following fields:
+- system: the system prompt to use for the queries, a string or null/missing to not use a system prompt
+- user: the user prompt to use for the queries, a string or null/missing to not use a user prompt
+- assistant: the assistant prompt to use for the queries, a string or null/missing to not use an assistant prompt
+- pid: the prompt id, a unique identifier for the prompt, a string
+At least one of the system, user or assistant fields must be non-null.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ragability" href="index.html">ragability</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="ragability.data.read_file" href="#ragability.data.read_file">read_file</a></code></li>
+<li><code><a title="ragability.data.read_input_file" href="#ragability.data.read_input_file">read_input_file</a></code></li>
+<li><code><a title="ragability.data.read_prompt_file" href="#ragability.data.read_prompt_file">read_prompt_file</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

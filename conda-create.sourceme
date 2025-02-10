@@ -1,0 +1,9 @@
+conda create -y -n ragability python=3.11
+
+conda activate ragability
+
+pip install -r requirements.txt
+pip install -e .
+
+python -m ipykernel install --user --name=ragability
+

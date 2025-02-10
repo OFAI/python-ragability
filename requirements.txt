@@ -1,0 +1,12 @@
+ollama
+git+https://github.com/OFAI/python-llms-wrapper.git
+scikit-learn
+notebook 
+jupyter 
+ipython 
+jupyterlab 
+ipykernel
+pandas
+hjson
+pdoc3
+pytest

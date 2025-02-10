@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>ragability.ragability_cc_wc1 API documentation</title>
+<meta name="description" content="Module for the CLI to convert the wiki-contradiction corpus to ragability input format">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ragability.ragability_cc_wc1</code></h1>
+</header>
+<section id="section-intro">
+<p>Module for the CLI to convert the wiki-contradiction corpus to ragability input format</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ragability.ragability_cc_wc1.get_args"><code class="name flex">
+<span>def <span class="ident">get_args</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_args():
+    &#34;&#34;&#34;
+    Get the command line arguments
+    &#34;&#34;&#34;
+    parser = argparse.ArgumentParser(description=&#39;Convert the WikiContradict-based datast to ragability input format&#39;)
+    parser.add_argument(&#39;--input&#39;, &#39;-i&#39;, type=str, help=&#39;Input TSV file&#39;, required=False)
+    parser.add_argument(&#39;--output&#39;, &#39;-o&#39;, type=str, help=&#39;Output hjson,json file&#39;, required=False)
+    parser.add_argument(&#39;--maxn&#39;, &#39;-n&#39;, type=int, help=&#39;Maximum number of input rows to process&#39;, required=False)
+    parser.add_argument(&#39;--promptfile&#39;, &#39;-p&#39;, type=str, help=&#39;Promptfile to write with the default prompts (do not write)&#39;, required=False)
+    parser.add_argument(&#34;--debug&#34;, &#34;-d&#34;, action=&#34;store_true&#34;, help=&#34;Debug mode&#34;, required=False)
+    args_tmp = parser.parse_args()
+    args = {}
+    args.update(vars(args_tmp))
+    return args</code></pre>
+</details>
+<div class="desc"><p>Get the command line arguments</p></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    args = get_args()
+    if args[&#34;debug&#34;]:
+        set_logging_level(DEBUG)
+        ppargs = pp_config(args)
+        logger.debug(f&#34;Effective arguments: {ppargs}&#34;)
+    run(args)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.row2raga_ctx1"><code class="name flex">
+<span>def <span class="ident">row2raga_ctx1</span></span>(<span>row)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def row2raga_ctx1(row):
+    out = dict(
+        qid=row[&#34;contradiction_ID&#34;] + &#34;-&#34; + &#34;ctx1&#34; + VAR,
+        tags=&#34;kind_1context, kind_1context_q, kind_context1, kind_context1_q, answerable&#34;,
+        facts=row[&#34;context_1&#34;],
+        query=row[&#34;query_text&#34;],
+        pids=[&#34;q_one_context&#34;],
+        checks=[
+            dict(
+                cid=&#34;answer_correct&#34;,
+                query=&#34;&#34;,
+                func=&#34;affirmative&#34;,
+                metrics=[&#34;correct_answer_all&#34;, &#34;correct_answer_answerable&#34;],
+                pid=&#34;check_correct_answer&#34;,
+                check_for=row[&#34;answer_context1&#34;]
+            ),
+        ],
+    )
+    return out</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.row2raga_ctx12ic"><code class="name flex">
+<span>def <span class="ident">row2raga_ctx12ic</span></span>(<span>row)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def row2raga_ctx12ic(row):
+    out = dict(
+        qid=row[&#34;contradiction_ID&#34;] + &#34;-&#34; + &#34;ctx12ic&#34; + VAR,
+        tags=&#34;kind_2contexts, kind_2contexts_ic, kind_context1+2, kind_context1+2_ic, answerable&#34;,
+        facts=[row[&#34;context_1&#34;],row[&#34;context_2&#34;]],
+        query=&#34;&#34;,
+        pids=[&#34;ci_two_contexts&#34;],
+        checks=[
+            dict(
+                cid=&#34;answer_correct&#34;,
+                func=&#34;negative&#34;,
+                metrics=[&#34;correct_answer_all&#34;, &#34;contradiction_identification&#34;],
+            ),
+        ],
+    )
+    return out</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.row2raga_ctx12q"><code class="name flex">
+<span>def <span class="ident">row2raga_ctx12q</span></span>(<span>row)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def row2raga_ctx12q(row):
+    out = dict(
+        qid=row[&#34;contradiction_ID&#34;] + &#34;-&#34; + &#34;ctx12q&#34; + VAR,
+        tags=&#34;kind_2contexts, kind_2contexts_q, kind_context1+2, kind_context1+2_q, not_answerable&#34;,
+        facts=[row[&#34;context_1&#34;], row[&#34;context_2&#34;]],
+        query=row[&#34;query_text&#34;],
+        pids=[&#34;q_two_contexts&#34;],
+        checks=[
+            dict(
+                cid=&#34;2ctx_not_answerable&#34;,
+                query=&#34;&#34;,
+                func=&#34;affirmative&#34;,
+                metrics=[&#34;correct_answer_all&#34;, &#34;refusal_not_answerable&#34;],
+                pid=&#34;check_response_answerable&#34;,
+            ),
+        ],
+    )
+    return out</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.row2raga_ctx1ic"><code class="name flex">
+<span>def <span class="ident">row2raga_ctx1ic</span></span>(<span>row)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def row2raga_ctx1ic(row):
+    out = dict(
+        qid=row[&#34;contradiction_ID&#34;] + &#34;-&#34; + &#34;ctx1ic&#34; + VAR,
+        tags=&#34;kind_1context, kind_1context_ic, kind_context1, kind_context1_ic, answerable&#34;,
+        facts=row[&#34;context_1&#34;],
+        query=&#34;&#34;,
+        pids=[&#34;ci_one_context&#34;],
+        checks=[
+            dict(
+                cid=&#34;answer_correct&#34;,
+                func=&#34;negative&#34;,
+                metrics=[&#34;correct_answer_all&#34;, &#34;contradiction_identification&#34;],
+            ),
+        ],
+    )
+    return out</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.row2raga_ctx2"><code class="name flex">
+<span>def <span class="ident">row2raga_ctx2</span></span>(<span>row)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def row2raga_ctx2(row):
+    out = dict(
+        qid=row[&#34;contradiction_ID&#34;] + &#34;-&#34; + &#34;ctx2&#34; + VAR,
+        tags=&#34;kind_1context, kind_1context_q, kind_context2, kind_context2_q, answerable&#34;,
+        facts=row[&#34;context_2&#34;],
+        query=row[&#34;query_text&#34;],
+        pids=[&#34;q_one_context&#34;],
+        checks=[
+            dict(
+                cid=&#34;answer_correct&#34;,
+                query=&#34;&#34;,
+                func=&#34;affirmative&#34;,
+                metrics=[&#34;correct_answer_all&#34;, &#34;correct_answer_answerable&#34;],
+                pid=&#34;check_correct_answer&#34;,
+                check_for=row[&#34;answer_context2&#34;]
+            ),
+        ],
+    )
+    return out</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.row2raga_ctx21ic"><code class="name flex">
+<span>def <span class="ident">row2raga_ctx21ic</span></span>(<span>row)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def row2raga_ctx21ic(row):
+    out = dict(
+        qid=row[&#34;contradiction_ID&#34;] + &#34;-&#34; + &#34;ctx21ic&#34; + VAR,
+        tags=&#34;kind_2contexts, kind_2contexts_ic, kind_context2+1, kind_context2+1_ic, answerable&#34;,
+        facts=[row[&#34;context_2&#34;],row[&#34;context_1&#34;]],
+        query=&#34;&#34;,
+        pids=[&#34;ci_two_contexts&#34;],
+        checks=[
+            dict(
+                cid=&#34;answer_correct&#34;,
+                func=&#34;negative&#34;,
+                metrics=[&#34;correct_answer_all&#34;, &#34;contradiction_identification&#34;],
+            ),
+        ],
+    )
+    return out</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.row2raga_ctx21q"><code class="name flex">
+<span>def <span class="ident">row2raga_ctx21q</span></span>(<span>row)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def row2raga_ctx21q(row):
+    out = dict(
+        qid=row[&#34;contradiction_ID&#34;] + &#34;-&#34; + &#34;ctx21q&#34; + VAR,
+        tags=&#34;kind_2contexts, kind_2contexts_q, kind_context2+1, kind_context2+1_q, not_answerable&#34;,
+        facts=[row[&#34;context_1&#34;], row[&#34;context_2&#34;]],
+        query=row[&#34;query_text&#34;],
+        pids=[&#34;q_two_contexts&#34;],
+        checks=[
+            dict(
+                cid=&#34;2ctx_not_answerable&#34;,
+                query=&#34;&#34;,
+                func=&#34;affirmative&#34;,
+                metrics=[&#34;correct_answer_all&#34;, &#34;refusal_not_answerable&#34;],
+                pid=&#34;check_response_answerable&#34;,
+            ),
+        ],
+    )
+    return out</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.row2raga_ctx2ic"><code class="name flex">
+<span>def <span class="ident">row2raga_ctx2ic</span></span>(<span>row)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def row2raga_ctx2ic(row):
+    out = dict(
+        qid=row[&#34;contradiction_ID&#34;] + &#34;-&#34; + &#34;ctx2ic&#34; + VAR,
+        tags=&#34;kind_1context, kind_1context_ic, kind_context2, kind_context2_ic, answerable&#34;,
+        facts=row[&#34;context_2&#34;],
+        query=&#34;&#34;,
+        pids=[&#34;ci_two_contexts&#34;],
+        checks=[
+            dict(
+                cid=&#34;answer_correct&#34;,
+                func=&#34;negative&#34;,
+                metrics=[&#34;correct_answer_all&#34;, &#34;contradiction_identification&#34;],
+            ),
+        ],
+    )
+    return out</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.row2raga_nc"><code class="name flex">
+<span>def <span class="ident">row2raga_nc</span></span>(<span>row)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def row2raga_nc(row):
+    out = dict(
+        qid=row[&#34;contradiction_ID&#34;] + &#34;-&#34; + &#34;nc&#34; + VAR,
+        tags=&#34;kind_no_context, kind_no_context_q, not_answerable&#34;,
+        query=row[&#34;query_text&#34;],
+        pids=[&#34;q_no_context&#34;],
+        checks=[
+            dict(
+                cid=&#34;no_ctx_not_answerable&#34;,
+                query=&#34;&#34;,
+                func=&#34;affirmative&#34;,
+                metrics=[&#34;correct_answer_all&#34;, &#34;refusal_not_answerable&#34;],
+                pid=&#34;check_response_answerable&#34;,
+            ),
+        ],
+    )
+    return out</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_cc_wc1.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>config: dict)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(config: dict):
+    pfile = config.get(&#34;promptfile&#34;)
+    if pfile:
+        with open(pfile, &#34;wt&#34;) as outfp:
+            hjson.dump(PROMPTS, outfp)
+        logger.info(f&#34;Prompts written to {pfile}&#34;)
+    if not config.get(&#34;input&#34;):
+        logger.info(&#34;No input file given, exiting&#34;)
+        return
+    if not config.get(&#34;output&#34;):
+        logger.error(&#34;Output file must be given if input file is specified&#34;)
+        return
+    df = pd.read_csv(config[&#34;input&#34;], sep=&#34;\t&#34;, dtype=&#34;string&#34;, na_filter=False)
+    logger.info(f&#34;Read {len(df)} rows with {df.shape[1]} columns from {config[&#39;input&#39;]}&#34;)
+
+    # write either a jsonl or json file, depending on the file extension
+    if not config[&#39;output&#39;].endswith(&#34;.json&#34;) and not config[&#39;output&#39;].endswith(&#34;.jsonl&#34;) and not config[&#39;output&#39;].endswith(&#34;.hjson&#34;):
+        raise Exception(f&#34;Error: Output file must end in .json, .jsonl or .hjson, not {config[&#39;output&#39;]}&#34;)
+    with open(config[&#39;output&#39;], &#39;wt&#39;) as f:
+        if config[&#39;output&#39;].endswith(&#34;.json&#34;) or config[&#39;output&#39;].endswith(&#34;.hjson&#34;):
+            f.write(&#34;[\n&#34;)
+
+        colnames = [&#34;index&#34;] + list(df.columns)
+        n_rows = 0
+        n_inputs = 0
+        for row in df.itertuples(name=None):
+            n_inputs += 1
+            rowdict = {cn: cv for cn, cv in zip(colnames, row)}
+            for conv in CONVS:
+                crow = conv(rowdict)
+                # copy over the meta data fields
+                for field in [&#34;reasoning_required&#34;, &#34;notes&#34;, &#34;WikiContradict_ID&#34;]:
+                    if field in rowdict:
+                        crow[field] = rowdict[field]
+                n_rows += 1
+                if config[&#39;output&#39;].endswith(&#34;.json&#34;):
+                    f.write(json.dumps(crow, indent=2) + &#34;\n&#34;)
+                elif config[&#39;output&#39;].endswith(&#34;.hjson&#34;):
+                    f.write(hjson.dumps(crow, indent=2) + &#34;\n&#34;)
+                else:
+                    f.write(json.dumps(crow) + &#34;\n&#34;)
+            if config.get(&#34;maxn&#34;) and n_inputs &gt;= config[&#34;maxn&#34;]:
+                logger.info(f&#34;Processed {n_inputs} rows, stopping&#34;)
+                break
+
+        if config[&#39;output&#39;].endswith(&#34;.json&#34;) or config[&#39;output&#39;].endswith(&#34;.hjson&#34;):
+            f.write(&#34;]\n&#34;)
+        logger.info(f&#34;Written {n_rows} entries to {config[&#39;output&#39;]}&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ragability" href="index.html">ragability</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="ragability.ragability_cc_wc1.get_args" href="#ragability.ragability_cc_wc1.get_args">get_args</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.main" href="#ragability.ragability_cc_wc1.main">main</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.row2raga_ctx1" href="#ragability.ragability_cc_wc1.row2raga_ctx1">row2raga_ctx1</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.row2raga_ctx12ic" href="#ragability.ragability_cc_wc1.row2raga_ctx12ic">row2raga_ctx12ic</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.row2raga_ctx12q" href="#ragability.ragability_cc_wc1.row2raga_ctx12q">row2raga_ctx12q</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.row2raga_ctx1ic" href="#ragability.ragability_cc_wc1.row2raga_ctx1ic">row2raga_ctx1ic</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.row2raga_ctx2" href="#ragability.ragability_cc_wc1.row2raga_ctx2">row2raga_ctx2</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.row2raga_ctx21ic" href="#ragability.ragability_cc_wc1.row2raga_ctx21ic">row2raga_ctx21ic</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.row2raga_ctx21q" href="#ragability.ragability_cc_wc1.row2raga_ctx21q">row2raga_ctx21q</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.row2raga_ctx2ic" href="#ragability.ragability_cc_wc1.row2raga_ctx2ic">row2raga_ctx2ic</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.row2raga_nc" href="#ragability.ragability_cc_wc1.row2raga_nc">row2raga_nc</a></code></li>
+<li><code><a title="ragability.ragability_cc_wc1.run" href="#ragability.ragability_cc_wc1.run">run</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

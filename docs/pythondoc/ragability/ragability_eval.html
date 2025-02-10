@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>ragability.ragability_eval API documentation</title>
+<meta name="description" content="Module for the CLI to create evaluation reports from a ragability_check output file.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ragability.ragability_eval</code></h1>
+</header>
+<section id="section-intro">
+<p>Module for the CLI to create evaluation reports from a ragability_check output file.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ragability.ragability_eval.get_args"><code class="name flex">
+<span>def <span class="ident">get_args</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_args():
+    &#34;&#34;&#34;
+    Get the command line arguments
+    &#34;&#34;&#34;
+    parser = argparse.ArgumentParser(description=&#39;Evaluation of a ragability_check output file&#39;)
+    parser.add_argument(&#39;--input&#39;, &#39;-i&#39;, type=str, help=&#39;Input ragability_check output file&#39;, required=True)
+    parser.add_argument(&#39;--save-json&#39;, &#39;-o&#39;, type=str,
+                        help=&#39;Output json or hjson&#39;, required=False)
+    parser.add_argument(&#39;--config&#39;, &#39;-c&#39;, type=str, help=&#39;Configuration file&#39;, required=False)
+    parser.add_argument(&#34;--save-longdf&#34;, type=str, help=&#34;Save the long format dataframe to a csv or tsv file&#34;, required=False)
+    parser.add_argument(&#34;--save-widedf&#34;, type=str, help=&#34;Save the wide format dataframe to a csv or tsv file&#34;, required=False)
+    parser.add_argument(&#39;--verbose&#39;, &#39;-v&#39;, action=&#34;store_true&#34;,
+                        help=&#39;Be more verbose&#39;, required=False)
+    parser.add_argument(&#39;--by_tags&#39;, nargs=&#34;+&#34;, type=str,
+                        help=&#39;List of tags or comma-separated taglists to evaluate by&#39;, required=False)
+    parser.add_argument(&#39;--by_qfields&#39;, nargs=&#34;+&#34;, type=str,
+                        help=&#39;List of query fields to evaluate by&#39;, required=False)
+    parser.add_argument(&#34;--debug&#34;, &#34;-d&#34;, action=&#34;store_true&#34;, help=&#34;Debug mode&#34;, required=False)
+    parser.add_argument(&#34;--debug-save-checkdfs&#34;, action=&#34;store_true&#34;, help=&#34;Save all the per-metric data frames&#34;, required=False)
+    args_tmp = parser.parse_args()
+    args = {}
+    args.update(vars(args_tmp))
+    return args</code></pre>
+</details>
+<div class="desc"><p>Get the command line arguments</p></div>
+</dd>
+<dt id="ragability.ragability_eval.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    args = get_args()
+    if args[&#34;debug&#34;]:
+        set_logging_level(DEBUG)
+        ppargs = pp_config(args)
+        logger.debug(f&#34;Effective arguments: {ppargs}&#34;)
+    run(args)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ragability.ragability_eval.make_grouping_func"><code class="name flex">
+<span>def <span class="ident">make_grouping_func</span></span>(<span>df: pandas.core.frame.DataFrame,<br>tags: List[str] | None = None,<br>fields: Dict[str, str] | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_grouping_func(
+    df: pd.DataFrame,
+    tags: Optional[List[str]] = None,
+    fields: Optional[Dict[str,str]] = None ):
+    &#34;&#34;&#34;
+    Create a function which can be used as an argument to the pandas group_by method on the given dataframe.
+    This creates a binary grouping where one group consists of all the rows that match the given tags and field values,
+    and another group which does not.
+    &#34;&#34;&#34;
+    # if both tags and fields are None or empty, raise and Exception
+    if tags is None and fields is None:
+        raise Exception(&#34;No grouping criteria&#34;)
+
+    def the_groupby_func(index):
+        row = df.loc[index]
+        if tags:
+            tag_values = [s.strip() for s in row[&#34;tags&#34;].split(&#34;,&#34;)]
+            for t in tags:
+                if t not in tag_values:
+                    logger.debug(f&#34;Tag {t} not in {tag_values} in {row} for groupby {tags}&#34;)
+                    return False
+        if fields:
+            for fname, fval in fields.items():
+                if row[fname] != fval:
+                    return False
+        return True
+    return the_groupby_func</code></pre>
+</details>
+<div class="desc"><p>Create a function which can be used as an argument to the pandas group_by method on the given dataframe.
+This creates a binary grouping where one group consists of all the rows that match the given tags and field values,
+and another group which does not.</p></div>
+</dd>
+<dt id="ragability.ragability_eval.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>config: dict)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(config: dict):
+    # read the input file and collect for each check the necessary fields
+    indata = read_input_file(config[&#34;input&#34;])
+    checksdata = defaultdict(lambda: defaultdict(list))
+    # counter to count the queries with errors
+    n_errors = 0
+    n_errors_per_llm = Counter()
+    nc_errors = 0
+    nc_errors_per_llm = Counter()
+    n_rows = 0
+    for idx, q in enumerate(indata):
+        error = q.get(&#34;error&#34;)
+        llm = q.get(&#34;llm&#34;)
+        if not llm:
+            raise ValueError(f&#34;Error: Missing &#39;llm&#39; field in entry with index {idx}: {q}&#34;)
+        if error:
+            n_errors += 1
+            n_errors_per_llm[llm] += 1
+            continue
+        for check in q[&#34;checks&#34;]:
+            func = check[&#34;func&#34;]
+            funcdef = CHECKS.get(func)
+            kind = funcdef[&#34;kind&#34;]
+            if not funcdef:
+                logger.error(f&#34;Check function {func} not found in check for qid {q[&#39;qid&#39;]}&#34;)
+                nc_errors += 1
+                nc_errors_per_llm[llm] += 1
+                continue
+            metrics = check[&#34;metrics&#34;]
+            for metric in metrics:
+                row = dict(
+                    target=funcdef[&#34;target&#34;],
+                    result=check[&#34;result&#34;],
+                    qid=q[&#34;qid&#34;],
+                    tags=q[&#34;tags&#34;],
+                    llm=llm,
+                )
+                # add any non=standard fields from the query to the row
+                for k, v in q.items():
+                    if k not in Q_STANDARD_FIELDS:
+                        row[k] = v
+                # add any non-standard fields from the check to the row
+                for k, v in check.items():
+                    if k not in C_STANDARD_FIELDS:
+                        row[f&#34;check_{k}&#34;] = v
+                checksdata[kind][metric].append(row)
+                n_rows += 1
+    logger.debug(f&#34;Errors in queries: {n_errors}&#34;)
+    logger.debug(f&#34;Errors in checks: {nc_errors}&#34;)
+    logger.debug(f&#34;Errors in queries per llm: {n_errors_per_llm}&#34;)
+    logger.debug(f&#34;Errors in checks per llm: {nc_errors_per_llm}&#34;)
+    logger.debug(f&#34;Generated check data rows: {n_rows}&#34;)
+    # convert the checksdata to a dictionary of dataframes, one for each metric
+    checkdfs = {}
+    for kind, kinddata in checksdata.items():
+        for metric, metricdata in kinddata.items():
+            dftmp = pd.DataFrame(metricdata)
+            checkdfs[f&#34;{kind}:{metric}&#34;] = dftmp
+            logger.debug(f&#34;Generated check data dataframe for {kind}:{metric} with {len(dftmp)} rows and {len(dftmp.columns)} columns&#34;)
+            # if --debug option is given, write the dataframe to a csv file
+            if config.get(&#34;debug-save-checkdfs&#34;):
+                dftmp.to_csv(f&#34;debug_checkdata_{kind}_{metric}.csv&#34;, index=False)
+    logger.debug(f&#34;Generated check data dataframes: {len(checkdfs)} for keys {list(checkdfs.keys())}&#34;)
+
+    # we have to generate an evaluation report dataframe of the following format:
+    # * column &#34;group&#34; contains a description of how the subgroup is defined
+    # * columns &#34;llm&#34; contains the llm name
+    # * one column per metric and statistic, for binary metrics this is of the form &#34;metricname:accuracy&#34;
+    # * one column per metric which contains the number of rows, this is of the form &#34;metricname:n&#34;
+    #
+    # example:
+    # group, llm, metric1:accuracy, metric1:n, metric2:accuracy, metric2:n
+    #
+    # To prepare the data for this dataframe, collect the rows of the dataframe in list, where each row
+    # is a dictionary with all the necessary fields
+
+    dfrows = []
+    # first of all, create the entries without any grouping, just by LLMs for all the metrics
+    for key, df in checkdfs.items():
+        kind, metric = key.split(&#34;:&#34;)
+        for llm, llmgroup in df.groupby(&#34;llm&#34;):
+            dfrows.append(dict(
+                group=&#34;all&#34;,
+                llm=llm,
+                metric=f&#34;{metric}:accuracy&#34;,
+                value=sk.metrics.accuracy_score(llmgroup[&#34;target&#34;].values, llmgroup[&#34;result&#34;].values)
+            ))
+            dfrows.append(dict(
+                group=&#34;all&#34;,
+                llm=llm,
+                metric=f&#34;{metric}:n&#34;,
+                value=len(llmgroup)
+            ))
+    logger.debug(f&#34;Generated {len(dfrows)} rows for all LLMs&#34;)
+
+
+    # now if we have grouping criteria, do the following: for each of the by_tags or by_qfields criteria,
+    # create a grouping function to split the df into two groups, one that matches the criteria and one that does not.
+    # Create the corresponding dataframes with the rows matching the criteria and the other with the rows not
+    # matching the criteria. Then group each of these dataframes by LLM and calculate the accuracy and number of rows
+    # for each metric.
+    if config.get(&#34;by_tags&#34;) or config.get(&#34;by_qfields&#34;):
+        for groupbyname in [&#34;by_tags&#34;, &#34;by_qfields&#34;]:
+            groupbyvalues = config.get(groupbyname)
+            logger.debug(f&#34;Grouping by {groupbyname} with values {groupbyvalues}&#34;)
+            if not groupbyvalues:
+                continue
+            n_rows4group = 0
+            for groupbyvalue in groupbyvalues:
+                logger.debug(f&#34;Generating rows for grouping by {groupbyname} with value {groupbyvalue}&#34;)
+                for key, df in checkdfs.items():
+                    if groupbyname == &#34;by_tags&#34;:
+                        grouping_func = make_grouping_func(df, tags=[groupbyvalue])
+                    else:
+                        # find all possible values of the field in the df
+                        fields = {groupbyvalue: v for v in df[groupbyvalue].unique()}
+                        grouping_func = make_grouping_func(df, fields=fields)
+                    kind, metric = key.split(&#34;:&#34;)
+                    grouped = df.groupby(grouping_func)
+                    for group, groupdf in grouped:
+                        logger.debug(f&#34;Grouping {key} by {groupbyname} with value {groupbyvalue} and group {group}&#34;)
+                        if group:
+                            groupname = f&#34;{groupbyvalue}:yes&#34;
+                        else:
+                            groupname = f&#34;{groupbyvalue}:no&#34;
+                        for llm, llmgroup in groupdf.groupby(&#34;llm&#34;):
+                            dfrows.append(dict(
+                                group=groupname,
+                                llm=llm,
+                                metric=f&#34;{metric}:accuracy&#34;,
+                                value=sk.metrics.accuracy_score(llmgroup[&#34;target&#34;].values, llmgroup[&#34;result&#34;].values)
+                            ))
+                            dfrows.append(dict(
+                                group=groupname,
+                                llm=llm,
+                                metric=f&#34;{metric}:n&#34;,
+                                value=len(llmgroup)
+                            ))
+                            n_rows4group += 2
+            logger.debug(f&#34;Generated {n_rows4group} rows for grouping by {groupbyname}&#34;)
+    logger.debug(f&#34;Generated {len(dfrows)} rows in total&#34;)
+    # create the long format dataframe from the list of rows
+    dfout_long = pd.DataFrame(dfrows)
+    if config.get(&#34;save-longdf&#34;):
+        if config[&#34;save-longdf&#34;].endswith(&#34;.csv&#34;):
+            dfout_long.to_csv(config[&#34;save-longdf&#34;], index=False)
+        elif config[&#34;save-longdf&#34;].endswith(&#34;.tsv&#34;):
+            dfout_long.to_csv(config[&#34;save-longdf&#34;], index=False, sep=&#34;\t&#34;)
+        else:
+            raise Exception(f&#34;Error: Output file must end in .csv or .tsv, not {config[&#39;save-longdf&#39;]}&#34;)
+    # now pivot the long format dataframe to the wide format
+    dfout = dfout_long.pivot_table(index=[&#34;group&#34;, &#34;llm&#34;], columns=&#34;metric&#34;, values=&#34;value&#34;)
+    dfout.reset_index(inplace=True)
+    if config.get(&#34;save-widedf&#34;):
+        if config[&#34;save-widedf&#34;].endswith(&#34;.csv&#34;):
+            dfout.to_csv(config[&#34;save-widedf&#34;], index=False)
+        elif config[&#34;save-widedf&#34;].endswith(&#34;.tsv&#34;):
+            dfout.to_csv(config[&#34;save-widedf&#34;], index=False, sep=&#34;\t&#34;)
+        else:
+            raise Exception(f&#34;Error: Output file must end in .csv or .tsv, not {config[&#39;save-widedf&#39;]}&#34;)
+    # if the output file is specified, save the dataframe as csv or tsv depending on the extension or
+    # save a dictionary representation of the dataframe as json or hjson
+    if config.get(&#34;save-json&#34;):
+        if config[&#34;output&#34;].endswith(&#34;.json&#34;):
+            dfout.to_json(config[&#34;output&#34;], orient=&#34;records&#34;)
+        elif config[&#34;output&#34;].endswith(&#34;.hjson&#34;):
+            with open(config[&#34;output&#34;], &#34;wt&#34;) as outfp:
+                hjson.dump(dfout.to_dict(orient=&#34;records&#34;), outfp)
+        else:
+            raise Exception(f&#34;Error: Output file must end in .csv, .tsv, .json or .hjson, not {config[&#39;output&#39;]}&#34;)
+    # if verbose is set, or no output file is specified, write the results to stdout using textual formattign of
+    # the dataframe
+    if config.get(&#34;verbose&#34;) or not config.get(&#34;output&#34;):
+        print(dfout_long.to_string())</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ragability" href="index.html">ragability</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="ragability.ragability_eval.get_args" href="#ragability.ragability_eval.get_args">get_args</a></code></li>
+<li><code><a title="ragability.ragability_eval.main" href="#ragability.ragability_eval.main">main</a></code></li>
+<li><code><a title="ragability.ragability_eval.make_grouping_func" href="#ragability.ragability_eval.make_grouping_func">make_grouping_func</a></code></li>
+<li><code><a title="ragability.ragability_eval.run" href="#ragability.ragability_eval.run">run</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

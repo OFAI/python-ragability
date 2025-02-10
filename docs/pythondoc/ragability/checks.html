@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>ragability.checks API documentation</title>
+<meta name="description" content="This module defines the checking functions that are implemented for testing the answers we got from LLMs.
+The module defines the functions, and …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ragability.checks</code></h1>
+</header>
+<section id="section-intro">
+<p>This module defines the checking functions that are implemented for testing the answers we got from LLMs.
+The module defines the functions, and registers them in the CHECKS dictionary which contains, for each function
+name, the function definition, the kind of check (e.g. binary, multiclass, score), the default target,
+and the number of arguments required in addition to the answer text itself.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ragability.checks.affirmative"><code class="name flex">
+<span>def <span class="ident">affirmative</span></span>(<span>answer)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;affirmative&#34;, &#34;binary&#34;, 0,
+                target=&#34;1&#34;,
+                description=&#34;Check if the answer is affirmative (yes, true, positive)&#34;)
+def affirmative(answer):
+    &#34;&#34;&#34;
+    Check if the answer is affirmative (yes, true, positive)
+    :param answer: the answer text
+    :return: 1 if the answer is affirmative, 0 otherwise
+    &#34;&#34;&#34;
+    return &#34;1&#34; if answer.lower() in [&#34;yes&#34;, &#34;true&#34;, &#34;positive&#34;] else &#34;0&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the answer is affirmative (yes, true, positive)
+:param answer: the answer text
+:return: 1 if the answer is affirmative, 0 otherwise</p></div>
+</dd>
+<dt id="ragability.checks.contains"><code class="name flex">
+<span>def <span class="ident">contains</span></span>(<span>answer, target)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;contains&#34;, &#34;binary&#34;, 1,
+                target=&#34;1&#34;,
+                description=&#34;Check if the answer contains the target&#34;)
+def contains(answer, target):
+    &#34;&#34;&#34;
+    Check if the answer contains the target
+    :param answer: the answer text
+    :param target: the target text
+    :return: 1 if the answer contains the target, 0 otherwise
+    &#34;&#34;&#34;
+    return &#34;1&#34; if target in answer else &#34;0&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the answer contains the target
+:param answer: the answer text
+:param target: the target text
+:return: 1 if the answer contains the target, 0 otherwise</p></div>
+</dd>
+<dt id="ragability.checks.contains_all"><code class="name flex">
+<span>def <span class="ident">contains_all</span></span>(<span>answer, targets)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;contains_all&#34;, &#34;binary&#34;, 1,
+                description=&#34;check if the answer contains all of the targets&#34;)
+def contains_all(answer, targets):
+    &#34;&#34;&#34;
+    Check if the answer contains all of the targets
+    :param answer: the answer text
+    :param targets: a list of target texts
+    :return: 1 if the answer contains all of the targets, 0 otherwise
+    &#34;&#34;&#34;
+    return &#34;1&#34; if all(t in answer for t in targets) else &#34;0&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the answer contains all of the targets
+:param answer: the answer text
+:param targets: a list of target texts
+:return: 1 if the answer contains all of the targets, 0 otherwise</p></div>
+</dd>
+<dt id="ragability.checks.contains_oneof"><code class="name flex">
+<span>def <span class="ident">contains_oneof</span></span>(<span>answer, targets)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;contains_oneof&#34;, &#34;binary&#34;, 1,
+                description=&#34;check if the answer contains one of the targets&#34;)
+def contains_oneof(answer, targets):
+    &#34;&#34;&#34;
+    Check if the answer contains one of the targets
+    :param answer: the answer text
+    :param targets: a list of target texts
+    :return: 1 if the answer contains one of the targets, 0 otherwise
+    &#34;&#34;&#34;
+    return &#34;1&#34; if any(t in answer for t in targets) else &#34;0&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the answer contains one of the targets
+:param answer: the answer text
+:param targets: a list of target texts
+:return: 1 if the answer contains one of the targets, 0 otherwise</p></div>
+</dd>
+<dt id="ragability.checks.extract_score"><code class="name flex">
+<span>def <span class="ident">extract_score</span></span>(<span>answer)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;extract_score&#34;, &#34;score&#34;, 0,
+                description=&#34;Extract a score from the answer. Expext exactly one number in the answer,if more raise exception&#34;)
+def extract_score(answer):
+    &#34;&#34;&#34;
+    Extract a score from the answer. Expect exactly one number in the answer, if more raise exception
+    :param answer: the answer text
+    :return: the score
+    &#34;&#34;&#34;
+    numbers = [float(s) for s in re.findall(r&#39;-?\d+\.?\d*&#39;, answer)]
+    if len(numbers) != 1:
+        raise Exception(f&#34;Error: Expected exactly one number in the answer, got {len(numbers)}&#34;)
+    return numbers[0]</code></pre>
+</details>
+<div class="desc"><p>Extract a score from the answer. Expect exactly one number in the answer, if more raise exception
+:param answer: the answer text
+:return: the score</p></div>
+</dd>
+<dt id="ragability.checks.is_eq"><code class="name flex">
+<span>def <span class="ident">is_eq</span></span>(<span>answer, target)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;is_eq&#34;, &#34;binary&#34;, 1,
+                target=&#34;1&#34;,
+                description=&#34;Check if the answer is exactly the target&#34;)
+def is_eq(answer, target):
+    &#34;&#34;&#34;
+    Check if the answer is exactly the target
+    :param answer: the answer text
+    :param target: the target text
+    :return: 1 if the answer is exactly the target, 0 otherwise
+    &#34;&#34;&#34;
+    return &#34;1&#34; if answer == target else &#34;0&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the answer is exactly the target
+:param answer: the answer text
+:param target: the target text
+:return: 1 if the answer is exactly the target, 0 otherwise</p></div>
+</dd>
+<dt id="ragability.checks.is_eq_oneof"><code class="name flex">
+<span>def <span class="ident">is_eq_oneof</span></span>(<span>answer, targets)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;is_eq_oneof&#34;, &#34;binary&#34;, 1,
+                description=&#34;check if the answer is exactly one of the targets&#34;)
+def is_eq_oneof(answer, targets):
+    &#34;&#34;&#34;
+    Check if the answer is exactly one of the targets
+    :param answer: the answer text
+    :param targets: a list of target texts
+    :return: 1 if the answer is exactly one of the targets, 0 otherwise
+    &#34;&#34;&#34;
+    return &#34;1&#34; if answer in targets else &#34;0&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the answer is exactly one of the targets
+:param answer: the answer text
+:param targets: a list of target texts
+:return: 1 if the answer is exactly one of the targets, 0 otherwise</p></div>
+</dd>
+<dt id="ragability.checks.is_textual_eq"><code class="name flex">
+<span>def <span class="ident">is_textual_eq</span></span>(<span>answer, target)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;is_textual_eq&#34;, &#34;binary&#34;, 1,
+                target=&#34;1&#34;,
+                description=&#34;Check if the answer is eq to the target, not considering case and whitespace&#34;)
+def is_textual_eq(answer, target):
+    &#34;&#34;&#34;
+    Check if the answer is equal to the target, ignoring case and whitespace
+    :param answer: the answer text
+    :param target: the target text
+    :return: 1 if the answer is equal to the target, ignoring case and whitespace, 0 otherwise
+    &#34;&#34;&#34;
+    return &#34;1&#34; if answer.strip().lower() == target.strip().lower() else &#34;0&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the answer is equal to the target, ignoring case and whitespace
+:param answer: the answer text
+:param target: the target text
+:return: 1 if the answer is equal to the target, ignoring case and whitespace, 0 otherwise</p></div>
+</dd>
+<dt id="ragability.checks.is_textual_eq_oneof"><code class="name flex">
+<span>def <span class="ident">is_textual_eq_oneof</span></span>(<span>answer, targets)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;is_textual_eq_oneof&#34;, &#34;binary&#34;, 1,
+                description=&#34;check if the answer is equal to one of the targets, ignoring case and whitespace&#34;)
+def is_textual_eq_oneof(answer, targets):
+    &#34;&#34;&#34;
+    Check if the answer is equal to one of the targets, ignoring case and whitespace
+    :param answer: the answer text
+    :param targets: a list of target texts
+    :return: 1 if the answer is equal to one of the targets, 0 otherwise
+    &#34;&#34;&#34;
+    return &#34;1&#34; if answer.strip().lower() in [t.strip().lower() for t in targets] else &#34;0&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the answer is equal to one of the targets, ignoring case and whitespace
+:param answer: the answer text
+:param targets: a list of target texts
+:return: 1 if the answer is equal to one of the targets, 0 otherwise</p></div>
+</dd>
+<dt id="ragability.checks.negative"><code class="name flex">
+<span>def <span class="ident">negative</span></span>(<span>answer)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;negative&#34;, &#34;binary&#34;, 0,
+                target=&#34;1&#34;,
+                description=&#34;Check if the answer is negative (no, false, negative)&#34;)
+def negative(answer):
+    &#34;&#34;&#34;
+    Check if the answer is negative (no, false, negative)
+    :param answer: the answer text
+    :return: 1 if the answer is negative, 0 otherwise
+    &#34;&#34;&#34;
+    return &#34;1&#34; if answer.lower() in [&#34;no&#34;, &#34;false&#34;, &#34;negative&#34;] else &#34;0&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the answer is negative (no, false, negative)
+:param answer: the answer text
+:return: 1 if the answer is negative, 0 otherwise</p></div>
+</dd>
+<dt id="ragability.checks.register_check"><code class="name flex">
+<span>def <span class="ident">register_check</span></span>(<span>name: str, kind: str, nargs: int, target: str = '', description: str = '')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def register_check(name: str, kind: str, nargs: int, target: str = &#34;&#34;, description: str = &#34;&#34;):
+    &#34;&#34;&#34;
+    Register a check function in the CHECKS dictionary
+    :param name: the name of the check function
+    :param kind: the kind of check: binary, multiclass, score
+    :param nargs: the number of positional arguments required in addition to the answer text itself
+        these positional arguments come from the list valued &#34;args&#34; field.
+        keyward parameters are always optional and can be set via the dict valued &#34;kwargs&#34; field.
+    :param description: a description of the check function
+    &#34;&#34;&#34;
+    def decorator(func):
+        CHECKS[name] = {
+            &#34;func&#34;: func,
+            &#34;kind&#34;: kind,
+            &#34;nargs&#34;: nargs,
+            &#34;target&#34;: target,   # the evaluation target: this is the value that the evaluator should consider correct for this check
+            &#34;description&#34;: description,
+        }
+        return func
+    return decorator</code></pre>
+</details>
+<div class="desc"><p>Register a check function in the CHECKS dictionary
+:param name: the name of the check function
+:param kind: the kind of check: binary, multiclass, score
+:param nargs: the number of positional arguments required in addition to the answer text itself
+these positional arguments come from the list valued "args" field.
+keyward parameters are always optional and can be set via the dict valued "kwargs" field.
+:param description: a description of the check function</p></div>
+</dd>
+<dt id="ragability.checks.unknown"><code class="name flex">
+<span>def <span class="ident">unknown</span></span>(<span>answer)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@register_check(&#34;unknown&#34;, &#34;binary&#34;, 0,
+                target=&#34;1&#34;,
+                description=&#34;Check if the answer equals &#39;unknown&#39;&#34;)
+def unknown(answer):
+    &#34;&#34;&#34;
+    Check if the answer textually equals one of: unknown, uncertain, i do not know, i don&#39;t know
+    :param answer: the answer text
+    :return: 1 if the answer is unknown, 0 otherwise
+    &#34;&#34;&#34;
+    return &#34;1&#34; if answer.strip().lower() in [&#34;unknown&#34;, &#34;uncertain&#34;, &#34;i do not know&#34;, &#34;i don&#39;t know&#34;] else &#34;0&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the answer textually equals one of: unknown, uncertain, i do not know, i don't know
+:param answer: the answer text
+:return: 1 if the answer is unknown, 0 otherwise</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ragability" href="index.html">ragability</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="ragability.checks.affirmative" href="#ragability.checks.affirmative">affirmative</a></code></li>
+<li><code><a title="ragability.checks.contains" href="#ragability.checks.contains">contains</a></code></li>
+<li><code><a title="ragability.checks.contains_all" href="#ragability.checks.contains_all">contains_all</a></code></li>
+<li><code><a title="ragability.checks.contains_oneof" href="#ragability.checks.contains_oneof">contains_oneof</a></code></li>
+<li><code><a title="ragability.checks.extract_score" href="#ragability.checks.extract_score">extract_score</a></code></li>
+<li><code><a title="ragability.checks.is_eq" href="#ragability.checks.is_eq">is_eq</a></code></li>
+<li><code><a title="ragability.checks.is_eq_oneof" href="#ragability.checks.is_eq_oneof">is_eq_oneof</a></code></li>
+<li><code><a title="ragability.checks.is_textual_eq" href="#ragability.checks.is_textual_eq">is_textual_eq</a></code></li>
+<li><code><a title="ragability.checks.is_textual_eq_oneof" href="#ragability.checks.is_textual_eq_oneof">is_textual_eq_oneof</a></code></li>
+<li><code><a title="ragability.checks.negative" href="#ragability.checks.negative">negative</a></code></li>
+<li><code><a title="ragability.checks.register_check" href="#ragability.checks.register_check">register_check</a></code></li>
+<li><code><a title="ragability.checks.unknown" href="#ragability.checks.unknown">unknown</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>
