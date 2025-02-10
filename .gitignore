@@ -1,7 +1,8 @@
 debug*
 tmp*
 .idea
-
+_site
+Gemfile.lock
 
 
 
