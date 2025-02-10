@@ -1,0 +1,8 @@
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+- jekyll-remote-theme # add this line to the plugins list if you already have one
+
+title: python-ragability
+description: A library and corpus for checking/benchmarking LLMs with regard to properties relevant to their use in RAG systems
+
+show_downloads: "false"
