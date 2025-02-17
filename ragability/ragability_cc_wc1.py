@@ -30,6 +30,12 @@ PROMPTS = [
         user="${query}",
     ),
     dict(
+        pid="q_two_contexts_hints",
+        system="Read the following facts between '====START' and '====END' and then answer the question which comes after these facts, only providing the facts and not mentioning that you extracted them from the text. Be aware that the context might be contradictory. If you find a contradiction, do not try to answer the question but report the contradictory phrases: \n====START\n${facts}\n====END",
+        fact="Fact ${n}: ${fact}\n",
+        user="${query}",
+    ),
+    dict(
         pid="ci_one_context",
         user="Read the following facts between '====START' and '====END' and decide if there is any contradiction present. Answer 'yes' if there is a contraction, answer 'no' if there is no contracdition, do not add anything else to your answer: \n====START\n${facts}\n====END",
         fact="Fact ${n}: ${fact}\n",
@@ -41,7 +47,7 @@ PROMPTS = [
     ),
     dict(
         pid="check_response_answerable",
-        system="You are to analyse the response after 'RESPONSE:' and answer 'yes' if the response refuses to give a concrete answer and instead points out that an answer is not possible. You are to answer no if the response includes, even just as a possibility, a concrete answer. Answer only with 'yes' or 'no', do not include additional explanations or information.",
+        system="You are to analyse the response after 'RESPONSE:'. Answer 'yes' if the response refuses to give a concrete answer and instead points out that an answer is not possible, or if two contradictory facts are presented in parallel without deciding which one is true. You are to answer 'no' if the response includes, even just as a possibility, a concrete answer. A 'yes' or a 'no' after 'RESPONSE:' would already be a concrete answer. Answer only with 'yes' or 'no', do not include additional explanations or information.",
         user="RESPONSE: ${answer}",
     ),
     dict(
@@ -119,7 +125,7 @@ def row2raga_ctx2(row):
 def row2raga_ctx12q(row):
     out = dict(
         qid=row["contradiction_ID"] + "-" + "ctx12q" + VAR,
-        tags="kind_2contexts, kind_2contexts_q, kind_context1+2, kind_context1+2_q, not_answerable",
+        tags="kind_2contexts, kind_2contexts_q, kind_context1+2, kind_context1+2_q, kind_2contexts_q-h, not_answerable",
         facts=[row["context_1"], row["context_2"]],
         query=row["query_text"],
         pids=["q_two_contexts"],
@@ -138,10 +144,48 @@ def row2raga_ctx12q(row):
 def row2raga_ctx21q(row):
     out = dict(
         qid=row["contradiction_ID"] + "-" + "ctx21q" + VAR,
-        tags="kind_2contexts, kind_2contexts_q, kind_context2+1, kind_context2+1_q, not_answerable",
+        tags="kind_2contexts, kind_2contexts_q, kind_context2+1, kind_context2+1_q, kind_2contexts_q-h, not_answerable",
         facts=[row["context_1"], row["context_2"]],
         query=row["query_text"],
         pids=["q_two_contexts"],
+        checks=[
+            dict(
+                cid="2ctx_not_answerable",
+                query="",
+                func="affirmative",
+                metrics=["correct_answer_all", "refusal_not_answerable"],
+                pid="check_response_answerable",
+            ),
+        ],
+    )
+    return out
+
+def row2raga_ctx12qh(row):
+    out = dict(
+        qid=row["contradiction_ID"] + "-" + "ctx12qh" + VAR,
+        tags="kind_2contexts, kind_2contexts_q, kind_context1+2, kind_context1+2_q, kind_2contexts_q+h, not_answerable",
+        facts=[row["context_1"], row["context_2"]],
+        query=row["query_text"],
+        pids=["q_two_contexts_hints"],
+        checks=[
+            dict(
+                cid="2ctx_not_answerable",
+                query="",
+                func="affirmative",
+                metrics=["correct_answer_all", "refusal_not_answerable"],
+                pid="check_response_answerable",
+            ),
+        ],
+    )
+    return out
+
+def row2raga_ctx21qh(row):
+    out = dict(
+        qid=row["contradiction_ID"] + "-" + "ctx21qh" + VAR,
+        tags="kind_2contexts, kind_2contexts_q, kind_context2+1, kind_context2+1_q, kind_2contexts_q+h, not_answerable",
+        facts=[row["context_1"], row["context_2"]],
+        query=row["query_text"],
+        pids=["q_two_contexts_hints"],
         checks=[
             dict(
                 cid="2ctx_not_answerable",
@@ -179,7 +223,7 @@ def row2raga_ctx2ic(row):
         tags="kind_1context, kind_1context_ic, kind_context2, kind_context2_ic, answerable",
         facts=row["context_2"],
         query="",
-        pids=["ci_two_contexts"],
+        pids=["ci_one_context"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -231,6 +275,7 @@ CONVS = [
     row2raga_nc,
     row2raga_ctx1, row2raga_ctx2,
     row2raga_ctx12q, row2raga_ctx21q,
+    row2raga_ctx12qh, row2raga_ctx21qh,
     row2raga_ctx1ic, row2raga_ctx2ic,
     row2raga_ctx12ic, row2raga_ctx21ic]
 
