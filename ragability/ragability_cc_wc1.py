@@ -12,52 +12,6 @@ from logging import DEBUG
 from ragability.logging import logger, set_logging_level
 from ragability.utils import pp_config
 
-PROMPTS = [
-    dict(
-        pid="q_no_context",
-        user="${query}",
-    ),
-    dict(
-        pid="q_one_context",
-        system="Read the following facts between '====START' and '====END' and then answer the question which comes after these facts, only providing the facts and not mentioning that you extracted them from the text: \n====START\n${facts}\n====END",
-        fact="Fact ${n}: ${fact}\n",
-        user="${query}",
-    ),
-    dict(
-        pid="q_two_contexts",
-        system="Read the following facts between '====START' and '====END' and then answer the question which comes after these facts, only providing the facts and not mentioning that you extracted them from the text: \n====START\n${facts}\n====END",
-        fact="Fact ${n}: ${fact}\n",
-        user="${query}",
-    ),
-    dict(
-        pid="q_two_contexts_hints",
-        system="Read the following facts between '====START' and '====END' and then answer the question which comes after these facts, only providing the facts and not mentioning that you extracted them from the text. Be aware that the context might be contradictory. If you find a contradiction, do not try to answer the question but report the contradictory phrases: \n====START\n${facts}\n====END",
-        fact="Fact ${n}: ${fact}\n",
-        user="${query}",
-    ),
-    dict(
-        pid="ci_one_context",
-        user="Read the following facts between '====START' and '====END' and decide if there is any contradiction present. Answer 'yes' if there is a contraction, answer 'no' if there is no contracdition, do not add anything else to your answer: \n====START\n${facts}\n====END",
-        fact="Fact ${n}: ${fact}\n",
-    ),
-    dict(
-        pid="ci_two_contexts",
-        user="Read the following facts between '====START' and '====END' and decide if there is any contradiction present. Answer 'yes' if there is a contraction, answer 'no' if there is no contracdition, do not add anything else to your answer: \n====START\n${facts}\n====END",
-        fact="Fact ${n}: ${fact}\n",
-    ),
-    dict(
-        pid="check_response_answerable",
-        system="You are to analyse the response after 'RESPONSE:'. Answer 'yes' if the response refuses to give a concrete answer and instead points out that an answer is not possible, or if two contradictory facts are presented in parallel without deciding which one is true. You are to answer 'no' if the response includes, even just as a possibility, a concrete answer. A 'yes' or a 'no' after 'RESPONSE:' would already be a concrete answer. Answer only with 'yes' or 'no', do not include additional explanations or information.",
-        user="RESPONSE: ${answer}",
-    ),
-    dict(
-        pid="check_correct_answer",
-        system="You are to analyse the response after 'RESPONSE:' and compare it to the target after 'TARGET:'. Answer 'yes' if the response and target are semantically equivalent and the response does not add or omit any information in the target, otherwise answer 'no'. Answer only with 'yes' or 'no', do not include additional explanations or information.",
-        user="RESPONSE: ${answer}, TARGET: ${check_for}",
-    ),
-
-]
-
 VAR = "-var01"
 
 
@@ -73,7 +27,7 @@ def row2raga_nc(row):
                 query="",
                 func="affirmative",
                 metrics=["correct_answer_all", "refusal_not_answerable"],
-                pid="check_response_answerable",
+                pid="check_response_not_answerable",
             ),
         ],
     )
@@ -135,7 +89,7 @@ def row2raga_ctx12q(row):
                 query="",
                 func="affirmative",
                 metrics=["correct_answer_all", "refusal_not_answerable"],
-                pid="check_response_answerable",
+                pid="check_response_not_answerable",
             ),
         ],
     )
@@ -154,7 +108,7 @@ def row2raga_ctx21q(row):
                 query="",
                 func="affirmative",
                 metrics=["correct_answer_all", "refusal_not_answerable"],
-                pid="check_response_answerable",
+                pid="check_response_not_answerable",
             ),
         ],
     )
@@ -173,7 +127,7 @@ def row2raga_ctx12qh(row):
                 query="",
                 func="affirmative",
                 metrics=["correct_answer_all", "refusal_not_answerable"],
-                pid="check_response_answerable",
+                pid="check_response_not_answerable",
             ),
         ],
     )
@@ -192,7 +146,7 @@ def row2raga_ctx21qh(row):
                 query="",
                 func="affirmative",
                 metrics=["correct_answer_all", "refusal_not_answerable"],
-                pid="check_response_answerable",
+                pid="check_response_not_answerable",
             ),
         ],
     )
