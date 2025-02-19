@@ -23,12 +23,15 @@ from ragability.checks import CHECKS
 def make_grouping_func(
     df: pd.DataFrame,
     tags: Optional[List[str]] = None,
-    fields: Optional[Dict[str,str]] = None ):
+    fields: Optional[List[str]] = None):
     """
     Create a function which can be used as an argument to the pandas group_by method on the given dataframe.
     This creates a binary grouping where one group consists of all the rows that match the given tags and field values,
     and another group which does not.
     """
+    # NOTE: for now this must be used for either tags or fields, not both
+    assert not (tags and fields)
+
     # if both tags and fields are None or empty, raise and Exception
     if tags is None and fields is None:
         raise Exception("No grouping criteria")
@@ -41,11 +44,15 @@ def make_grouping_func(
                 if t not in tag_values:
                     logger.debug(f"Tag {t} not in {tag_values} in {row} for groupby {tags}")
                     return False
-        if fields:
-            for fname, fval in fields.items():
-                if row[fname] != fval:
-                    return False
-        return True
+            return True
+        elif fields:
+            keys = []
+            for fname in fields:
+                keys.append(row[fname])
+            groupname = ",".join(keys)
+            return groupname
+        else:
+            raise Exception("No grouping criteria")
     return the_groupby_func
 
 
@@ -55,11 +62,11 @@ def get_args():
     """
     parser = argparse.ArgumentParser(description='Evaluation of a ragability_check output file')
     parser.add_argument('--input', '-i', type=str, help='Input ragability_check output file', required=True)
-    parser.add_argument('--save-json', '-o', type=str,
+    parser.add_argument('--save_json', '-o', type=str,
                         help='Output json or hjson', required=False)
     parser.add_argument('--config', '-c', type=str, help='Configuration file', required=False)
-    parser.add_argument("--save-longdf", type=str, help="Save the long format dataframe to a csv or tsv file", required=False)
-    parser.add_argument("--save-widedf", type=str, help="Save the wide format dataframe to a csv or tsv file", required=False)
+    parser.add_argument("--save_longdf", type=str, help="Save the long format dataframe to a csv or tsv file", required=False)
+    parser.add_argument("--save_widedf", type=str, help="Save the wide format dataframe to a csv or tsv file", required=False)
     parser.add_argument('--verbose', '-v', action="store_true",
                         help='Be more verbose', required=False)
     parser.add_argument('--by_tags', nargs="+", type=str,
@@ -173,85 +180,110 @@ def run(config: dict):
             ))
     logger.debug(f"Generated {len(dfrows)} rows for all LLMs")
 
-
-    # now if we have grouping criteria, do the following: for each of the by_tags or by_qfields criteria,
-    # create a grouping function to split the df into two groups, one that matches the criteria and one that does not.
-    # Create the corresponding dataframes with the rows matching the criteria and the other with the rows not
-    # matching the criteria. Then group each of these dataframes by LLM and calculate the accuracy and number of rows
-    # for each metric.
-    if config.get("by_tags") or config.get("by_qfields"):
-        for groupbyname in ["by_tags", "by_qfields"]:
-            groupbyvalues = config.get(groupbyname)
-            logger.debug(f"Grouping by {groupbyname} with values {groupbyvalues}")
-            if not groupbyvalues:
-                continue
-            n_rows4group = 0
-            for groupbyvalue in groupbyvalues:
-                logger.debug(f"Generating rows for grouping by {groupbyname} with value {groupbyvalue}")
-                for key, df in checkdfs.items():
-                    if groupbyname == "by_tags":
-                        grouping_func = make_grouping_func(df, tags=[groupbyvalue])
+    # for eachof the tag names mentioned in the config "by_tags" parameter, create a group for all rows
+    # which do have the tag, labeling with the group name "tagname:yes" and for all rows which do not have the tag
+    # labeling with the group name "tagname:no". For each of these groups, create the same metrics as for the "all"
+    # group.
+    if config.get("by_tags"):
+        for tagname in config.get("by_tags"):
+            logger.debug(f"Generating rows for grouping by tag {tagname}")
+            for key, df in checkdfs.items():
+                grouping_func = make_grouping_func(df, tags=[tagname])
+                kind, metric = key.split(":")
+                grouped = df.groupby(grouping_func)
+                for group, groupdf in grouped:
+                    logger.debug(f"Grouping {key} by tag {tagname} and group {group}")
+                    if group:
+                        groupname = f"{tagname}:yes"
                     else:
-                        # find all possible values of the field in the df
-                        fields = {groupbyvalue: v for v in df[groupbyvalue].unique()}
-                        grouping_func = make_grouping_func(df, fields=fields)
-                    kind, metric = key.split(":")
-                    grouped = df.groupby(grouping_func)
-                    for group, groupdf in grouped:
-                        logger.debug(f"Grouping {key} by {groupbyname} with value {groupbyvalue} and group {group}")
-                        if group:
-                            groupname = f"{groupbyvalue}:yes"
-                        else:
-                            groupname = f"{groupbyvalue}:no"
-                        for llm, llmgroup in groupdf.groupby("llm"):
-                            dfrows.append(dict(
-                                group=groupname,
-                                llm=llm,
-                                metric=f"{metric}:accuracy",
-                                value=sk.metrics.accuracy_score(llmgroup["target"].values, llmgroup["result"].values)
-                            ))
-                            dfrows.append(dict(
-                                group=groupname,
-                                llm=llm,
-                                metric=f"{metric}:n",
-                                value=len(llmgroup)
-                            ))
-                            n_rows4group += 2
-            logger.debug(f"Generated {n_rows4group} rows for grouping by {groupbyname}")
+                        groupname = f"{tagname}:no"
+                    for llm, llmgroup in groupdf.groupby("llm"):
+                        dfrows.append(dict(
+                            group=groupname,
+                            llm=llm,
+                            metric=f"{metric}:accuracy",
+                            value=sk.metrics.accuracy_score(llmgroup["target"].values, llmgroup["result"].values)
+                        ))
+                        dfrows.append(dict(
+                            group=groupname,
+                            llm=llm,
+                            metric=f"{metric}:n",
+                            value=len(llmgroup)
+                        ))
+
+    # for each of the field names mentioned in the config "by_qfields" parameter, find all the different
+    # values of the field in the dataframe and create a group for each of these values, labeling with the group name
+    # "fieldname:value" for all rows which have the value.
+    # For each of these groups, create the same metrics as for the "all" group.
+    if config.get("by_qfields"):
+        for fieldname in config.get("by_qfields"):
+            logger.debug(f"Generating rows for grouping by field {fieldname}")
+            for key, df in checkdfs.items():
+                grouping_func = make_grouping_func(df, fields=[fieldname])
+                kind, metric = key.split(":")
+                grouped = df.groupby(grouping_func)
+                for group, groupdf in grouped:
+                    logger.debug(f"Grouping {key} by field {fieldname} and group {group}")
+                    if group:
+                        groupname = f"{fieldname}:{group}"
+                    else:
+                        groupname = f"{fieldname}:no"
+                    for llm, llmgroup in groupdf.groupby("llm"):
+                        dfrows.append(dict(
+                            group=groupname,
+                            llm=llm,
+                            metric=f"{metric}:accuracy",
+                            value=sk.metrics.accuracy_score(llmgroup["target"].values, llmgroup["result"].values)
+                        ))
+                        dfrows.append(dict(
+                            group=groupname,
+                            llm=llm,
+                            metric=f"{metric}:n",
+                            value=len(llmgroup)
+                        ))
+
     logger.debug(f"Generated {len(dfrows)} rows in total")
+    # re-order the rows and sort by group, llm, metric
+    dfrows = sorted(dfrows, key=lambda x: (x["group"], x["llm"], x["metric"]))
+
     # create the long format dataframe from the list of rows
     dfout_long = pd.DataFrame(dfrows)
-    if config.get("save-longdf"):
-        if config["save-longdf"].endswith(".csv"):
-            dfout_long.to_csv(config["save-longdf"], index=False)
-        elif config["save-longdf"].endswith(".tsv"):
-            dfout_long.to_csv(config["save-longdf"], index=False, sep="\t")
+    logger.debug(f"Generated long format dataframe with {len(dfout_long)} rows and {len(dfout_long.columns)} columns")
+    if config.get("save_longdf"):
+        if config["save_longdf"].endswith(".csv"):
+            dfout_long.to_csv(config["save_longdf"], index=False)
+        elif config["save_longdf"].endswith(".tsv"):
+            dfout_long.to_csv(config["save_longdf"], index=False, sep="\t")
         else:
             raise Exception(f"Error: Output file must end in .csv or .tsv, not {config['save-longdf']}")
     # now pivot the long format dataframe to the wide format
     dfout = dfout_long.pivot_table(index=["group", "llm"], columns="metric", values="value")
     dfout.reset_index(inplace=True)
-    if config.get("save-widedf"):
-        if config["save-widedf"].endswith(".csv"):
-            dfout.to_csv(config["save-widedf"], index=False)
-        elif config["save-widedf"].endswith(".tsv"):
-            dfout.to_csv(config["save-widedf"], index=False, sep="\t")
+    if config.get("save_widedf"):
+        if config["save_widedf"].endswith(".csv"):
+            dfout.to_csv(config["save_widedf"], index=False)
+        elif config["save_widedf"].endswith(".tsv"):
+            dfout.to_csv(config["save_widedf"], index=False, sep="\t")
         else:
-            raise Exception(f"Error: Output file must end in .csv or .tsv, not {config['save-widedf']}")
+            raise Exception(f"Error: Output file must end in .csv or .tsv, not {config['save_widedf']}")
     # if the output file is specified, save the dataframe as csv or tsv depending on the extension or
     # save a dictionary representation of the dataframe as json or hjson
-    if config.get("save-json"):
-        if config["output"].endswith(".json"):
-            dfout.to_json(config["output"], orient="records")
-        elif config["output"].endswith(".hjson"):
-            with open(config["output"], "wt") as outfp:
+    if config.get("save_json"):
+        if config["save_json"].endswith(".json"):
+            dfout.to_json(config["save_json"], orient="records")
+        elif config["save_json"].endswith(".hjson"):
+            with open(config["save_json"], "wt") as outfp:
                 hjson.dump(dfout.to_dict(orient="records"), outfp)
         else:
             raise Exception(f"Error: Output file must end in .csv, .tsv, .json or .hjson, not {config['output']}")
     # if verbose is set, or no output file is specified, write the results to stdout using textual formattign of
     # the dataframe
-    if config.get("verbose") or not config.get("output"):
-        print(dfout_long.to_string())
+    if config.get("verbose") or not config.get("save-json"):
+        # createa copy of the dataframe with all the rows where the column "metric" has a value
+        # which ends with :n removed
+        dfout_long_metrics = dfout_long[~dfout_long["metric"].str.endswith(":n")]
+        print(dfout_long_metrics.to_string())
+
 
 
 def main():
