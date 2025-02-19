@@ -107,7 +107,7 @@ Checker Output file / Eval Input file:
 * NOTE: if there were transient errors during processing, the output file can be re-used as an input file and by default, 
   only those entries which do not already have a response will get re-processed
 
-onfig file:
+Config file:
 
 * a json or hjson or yaml file containing a dictionary with the following keys
 * `llms`: a list of strings or dictionaries describing the LLMs to use. A dictionary can contain the following keys:
@@ -119,7 +119,11 @@ onfig file:
      with the actual values
   * `user`: the user name to use for basic authentication 
   * `password`: the password to use for basic authentication
-  * Any specification that is present in the corresponding provider config is overridden with the value provided in the llm config
+  * Any specification of the above fields that is present in the corresponding provider config is overridden with the value provided in the llm config
+  * `cost_per_prompt_token`: configure or override the cost per prompt token
+  * `cost_per_output_token`: configure or override the cost per output token
+  * `max_input_tokens`: configure or override the maximum number of input/prompt tokens
+  * `max_output_tokens`: configure or override the maximum number of output tokens
 * `providers`: a dict with provider names as the key and a dict of provider settings as the values where each dict can contain the followign keys:
   * `api_key`: the API key to use for the model
   * `api_key_env`: the name of an environment variable containing the API key
