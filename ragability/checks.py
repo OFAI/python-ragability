@@ -79,7 +79,7 @@ def affirmative(answer):
     :param answer: the answer text
     :return: 1 if the answer is affirmative, 0 otherwise
     """
-    return "1" if answer.lower() in ["yes", "true", "positive"] else "0"
+    return "1" if answer.strip().lower() in ["yes", "true", "positive"] else "0"
 
 
 @register_check("negative", "binary", 0,
@@ -91,7 +91,7 @@ def negative(answer):
     :param answer: the answer text
     :return: 1 if the answer is negative, 0 otherwise
     """
-    return "1" if answer.lower() in ["no", "false", "negative"] else "0"
+    return "1" if answer.strip().lower() in ["no", "false", "negative"] else "0"
 
 
 @register_check("unknown", "binary", 0,
