@@ -51,6 +51,7 @@ setup(
        "ragability_info=ragability.ragability_info:main",
        "ragability_query=ragability.ragability_query:main",
        "ragability_check=ragability.ragability_check:main",
+       "ragability_check2=ragability.ragability_check2:main",
        "ragability_cc_wc1=ragability.ragability_cc_wc1:main",
        "ragability_eval=ragability.ragability_eval:main",
        "ragability_hjson_cat=ragability.ragability_hjson_cat:main",
