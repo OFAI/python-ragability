@@ -109,6 +109,9 @@ Checker Output file / Eval Input file:
 
 Config file:
 
+* IMPORTANT: the config file is used by the backend library `llms_wrapper` to configure LLMs and providers, see the documentation
+  of that library for the most recent description of what is supported in the config file for LLMs and providers: 
+  https://github.com/OFAI/python-llms-wrapper/wiki
 * a json or hjson or yaml file containing a dictionary with the following keys
 * `llms`: a list of strings or dictionaries describing the LLMs to use. A dictionary can contain the following keys:
   * `llm`: the name/id of the LLM. This should be in the form provider:llmmodel where "provider" must be a known provider or something defined in the 
