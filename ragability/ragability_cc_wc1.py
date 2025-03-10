@@ -40,7 +40,7 @@ def row2raga_ctx1(row):
         tags="kind_1context, kind_1context_q, kind_context1, kind_context1_q, answerable",
         facts=row["context_1"],
         query=row["query_text"],
-        pids=["q_one_context"],
+        pids=["q_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -61,7 +61,7 @@ def row2raga_ctx2(row):
         tags="kind_1context, kind_1context_q, kind_context2, kind_context2_q, answerable",
         facts=row["context_2"],
         query=row["query_text"],
-        pids=["q_one_context"],
+        pids=["q_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -82,7 +82,7 @@ def row2raga_ctx12q(row):
         tags="kind_2contexts, kind_2contexts_q, kind_context1+2, kind_context1+2_q, kind_2contexts_q-h, not_answerable",
         facts=[row["context_1"], row["context_2"]],
         query=row["query_text"],
-        pids=["q_two_contexts"],
+        pids=["q_n_contexts"],
         checks=[
             dict(
                 cid="2ctx_not_answerable",
@@ -101,7 +101,7 @@ def row2raga_ctx21q(row):
         tags="kind_2contexts, kind_2contexts_q, kind_context2+1, kind_context2+1_q, kind_2contexts_q-h, not_answerable",
         facts=[row["context_2"], row["context_1"]],
         query=row["query_text"],
-        pids=["q_two_contexts"],
+        pids=["q_n_contexts"],
         checks=[
             dict(
                 cid="2ctx_not_answerable",
@@ -120,7 +120,7 @@ def row2raga_ctx1234q(row):
         tags="kind_4contexts, kind_4contexts_q, kind_context1+2+3+4, kind_context1+2+3+4_q, kind_4contexts_q-h, not_answerable",
         facts=[row["context_1"], row["context_2"], row["context_3_nc1_c2"], row["context_4_nc1_nc2_nc3"]],
         query=row["query_text"],
-        pids=["q_two_contexts"],
+        pids=["q_n_contexts"],
         checks=[
             dict(
                 cid="2ctx_not_answerable",
@@ -139,7 +139,7 @@ def row2raga_ctx12qh(row):
         tags="kind_2contexts, kind_2contexts_q, kind_context1+2, kind_context1+2_q, kind_2contexts_q+h, not_answerable",
         facts=[row["context_1"], row["context_2"]],
         query=row["query_text"],
-        pids=["q_two_contexts_hints"],
+        pids=["q_n_contexts_hints"],
         checks=[
             dict(
                 cid="2ctx_not_answerable",
@@ -158,7 +158,7 @@ def row2raga_ctx21qh(row):
         tags="kind_2contexts, kind_2contexts_q, kind_context2+1, kind_context2+1_q, kind_2contexts_q+h, not_answerable",
         facts=[row["context_2"], row["context_1"]],
         query=row["query_text"],
-        pids=["q_two_contexts_hints"],
+        pids=["q_n_contexts_hints"],
         checks=[
             dict(
                 cid="2ctx_not_answerable",
@@ -177,7 +177,7 @@ def row2raga_ctx1234qh(row):
         tags="kind_4contexts, kind_4contexts_q, kind_context1+2+3+4, kind_context1+2+3+4_q, kind_4contexts_q+h, not_answerable",
         facts=[row["context_1"], row["context_2"], row["context_3_nc1_c2"], row["context_4_nc1_nc2_nc3"]],
         query=row["query_text"],
-        pids=["q_two_contexts_hints"],
+        pids=["q_n_contexts_hints"],
         checks=[
             dict(
                 cid="2ctx_not_answerable",
@@ -196,7 +196,7 @@ def row2raga_ctx13q(row):
         tags="kind_2contexts, kind_2contexts_q, kind_context1+3, kind_context1+3_q, kind_2contexts_q-h, answerable",
         facts=[row["context_1"], row["context_3_nc1_c2"]],
         query=row["query_text"],
-        pids=["q_two_contexts"],
+        pids=["q_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -216,7 +216,7 @@ def row2raga_ctx31q(row):
         tags="kind_2contexts, kind_2contexts_q, kind_context3+1, kind_context3+1_q, kind_2contexts_q-h, answerable",
         facts=[row["context_3_nc1_c2"], row["context_1"]],
         query=row["query_text"],
-        pids=["q_two_contexts"],
+        pids=["q_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -236,7 +236,7 @@ def row2raga_ctx13qh(row):
         tags="kind_2contexts, kind_2contexts_q, kind_context1+3, kind_context1+3_q, kind_2contexts_q+h, answerable",
         facts=[row["context_1"], row["context_3_nc1_c2"]],
         query=row["query_text"],
-        pids=["q_two_contexts_hints"],
+        pids=["q_n_contexts_hints"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -256,7 +256,7 @@ def row2raga_ctx31qh(row):
         tags="kind_2contexts, kind_2contexts_q, kind_context3+1, kind_context3+1_q, kind_2contexts_q+h, answerable",
         facts=[row["context_3_nc1_c2"], row["context_1"]],
         query=row["query_text"],
-        pids=["q_two_contexts_hints"],
+        pids=["q_n_contexts_hints"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -277,7 +277,7 @@ def row2raga_ctx1ic(row):
         tags="kind_1context, kind_1context_ic, kind_context1, kind_context1_ic, answerable",
         facts=row["context_1"],
         query="",
-        pids=["ci_one_context"],
+        pids=["ci_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -295,7 +295,7 @@ def row2raga_ctx2ic(row):
         tags="kind_1context, kind_1context_ic, kind_context2, kind_context2_ic, answerable",
         facts=row["context_2"],
         query="",
-        pids=["ci_one_context"],
+        pids=["ci_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -312,7 +312,7 @@ def row2raga_ctx12ic(row):
         tags="kind_2contexts, kind_2contexts_ic, kind_context1+2, kind_context1+2_ic, answerable",
         facts=[row["context_1"],row["context_2"]],
         query="",
-        pids=["ci_two_contexts"],
+        pids=["ci_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -330,7 +330,7 @@ def row2raga_ctx21ic(row):
         tags="kind_2contexts, kind_2contexts_ic, kind_context2+1, kind_context2+1_ic, answerable",
         facts=[row["context_2"],row["context_1"]],
         query="",
-        pids=["ci_two_contexts"],
+        pids=["ci_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -347,7 +347,7 @@ def row2raga_ctx13ic(row):
         tags="kind_2contexts, kind_2contexts_ic, kind_context1+3, kind_context1+3_ic, answerable",
         facts=[row["context_1"],row["context_3_nc1_c2"]],
         query="",
-        pids=["ci_two_contexts"],
+        pids=["ci_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -364,7 +364,7 @@ def row2raga_ctx31ic(row):
         tags="kind_2contexts, kind_2contexts_ic, kind_context3+1, kind_context3+1_ic, answerable",
         facts=[row["context_3_nc1_c2"],row["context_1"]],
         query="",
-        pids=["ci_two_contexts"],
+        pids=["ci_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
@@ -381,7 +381,7 @@ def row2raga_ctx1234ic(row):
         tags="kind_4contexts, kind_4contexts_ic, kind_context1+2+3+4, kind_context1+2+3+4_ic, not_answerable",
         facts=[row["context_1"], row["context_2"], row["context_3_nc1_c2"], row["context_4_nc1_nc2_nc3"]],
         query="",
-        pids=["ci_two_contexts"],
+        pids=["ci_n_contexts"],
         checks=[
             dict(
                 cid="answer_correct",
