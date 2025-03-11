@@ -114,6 +114,47 @@ def row2raga_ctx21q(row):
     )
     return out
     
+def row2raga_ctx13q(row):
+    out = dict(
+        qid=row["contradiction_ID"] + "-" + "ctx13q" + VAR,
+        tags="kind_2contexts, kind_2contexts_q, kind_context1+3, kind_context1+3_q, kind_2contexts_q-h, answerable",
+        facts=[row["context_1"], row["context_3_nc1_c2"]],
+        query=row["query_text"],
+        pids=["q_n_contexts"],
+        checks=[
+            dict(
+                cid="answer_correct",
+                query="",
+                func="affirmative",
+                metrics=["correct_answer_all", "correct_answer_answerable"],
+                pid="check_correct_answer",
+                check_for="short answer: "+row["answer_context1"]+"\nlong answer: "+row["answer_context1_long"]
+            ),
+        ],
+    )
+    return out
+
+def row2raga_ctx31q(row):
+    out = dict(
+        qid=row["contradiction_ID"] + "-" + "ctx31q" + VAR,
+        tags="kind_2contexts, kind_2contexts_q, kind_context3+1, kind_context3+1_q, kind_2contexts_q-h, answerable",
+        facts=[row["context_3_nc1_c2"], row["context_1"]],
+        query=row["query_text"],
+        pids=["q_n_contexts"],
+        checks=[
+            dict(
+                cid="answer_correct",
+                query="",
+                func="affirmative",
+                metrics=["correct_answer_all", "correct_answer_answerable"],
+                pid="check_correct_answer",
+                check_for="short answer: "+row["answer_context1"]+"\nlong answer: "+row["answer_context1_long"]
+            ),
+        ],
+    )
+    return out
+
+    
 def row2raga_ctx1234q(row):
     out = dict(
         qid=row["contradiction_ID"] + "-" + "ctx1234q" + VAR,
@@ -171,65 +212,6 @@ def row2raga_ctx21qh(row):
     )
     return out
     
-def row2raga_ctx1234qh(row):
-    out = dict(
-        qid=row["contradiction_ID"] + "-" + "ctx1234qh" + VAR,
-        tags="kind_4contexts, kind_4contexts_q, kind_context1+2+3+4, kind_context1+2+3+4_q, kind_4contexts_q+h, not_answerable",
-        facts=[row["context_1"], row["context_2"], row["context_3_nc1_c2"], row["context_4_nc1_nc2_nc3"]],
-        query=row["query_text"],
-        pids=["q_n_contexts_hints"],
-        checks=[
-            dict(
-                cid="2ctx_not_answerable",
-                query="",
-                func="affirmative",
-                metrics=["correct_answer_all", "refusal_not_answerable"],
-                pid="check_response_not_answerable",
-            ),
-        ],
-    )
-    return out
-    
-def row2raga_ctx13q(row):
-    out = dict(
-        qid=row["contradiction_ID"] + "-" + "ctx13q" + VAR,
-        tags="kind_2contexts, kind_2contexts_q, kind_context1+3, kind_context1+3_q, kind_2contexts_q-h, answerable",
-        facts=[row["context_1"], row["context_3_nc1_c2"]],
-        query=row["query_text"],
-        pids=["q_n_contexts"],
-        checks=[
-            dict(
-                cid="answer_correct",
-                query="",
-                func="affirmative",
-                metrics=["correct_answer_all", "correct_answer_answerable"],
-                pid="check_correct_answer",
-                check_for="short answer: "+row["answer_context1"]+"\nlong answer: "+row["answer_context1_long"]
-            ),
-        ],
-    )
-    return out
-
-def row2raga_ctx31q(row):
-    out = dict(
-        qid=row["contradiction_ID"] + "-" + "ctx31q" + VAR,
-        tags="kind_2contexts, kind_2contexts_q, kind_context3+1, kind_context3+1_q, kind_2contexts_q-h, answerable",
-        facts=[row["context_3_nc1_c2"], row["context_1"]],
-        query=row["query_text"],
-        pids=["q_n_contexts"],
-        checks=[
-            dict(
-                cid="answer_correct",
-                query="",
-                func="affirmative",
-                metrics=["correct_answer_all", "correct_answer_answerable"],
-                pid="check_correct_answer",
-                check_for="short answer: "+row["answer_context1"]+"\nlong answer: "+row["answer_context1_long"]
-            ),
-        ],
-    )
-    return out
-
 def row2raga_ctx13qh(row):
     out = dict(
         qid=row["contradiction_ID"] + "-" + "ctx13qh" + VAR,
@@ -270,6 +252,24 @@ def row2raga_ctx31qh(row):
     )
     return out
 
+def row2raga_ctx1234qh(row):
+    out = dict(
+        qid=row["contradiction_ID"] + "-" + "ctx1234qh" + VAR,
+        tags="kind_4contexts, kind_4contexts_q, kind_context1+2+3+4, kind_context1+2+3+4_q, kind_4contexts_q+h, not_answerable",
+        facts=[row["context_1"], row["context_2"], row["context_3_nc1_c2"], row["context_4_nc1_nc2_nc3"]],
+        query=row["query_text"],
+        pids=["q_n_contexts_hints"],
+        checks=[
+            dict(
+                cid="2ctx_not_answerable",
+                query="",
+                func="affirmative",
+                metrics=["correct_answer_all", "refusal_not_answerable"],
+                pid="check_response_not_answerable",
+            ),
+        ],
+    )
+    return out
 
 def row2raga_ctx1ic(row):
     out = dict(
