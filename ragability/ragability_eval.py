@@ -313,7 +313,7 @@ def run(config: dict):
             logger.info(f"  {llm}: {n}")
     logger.info(f"Errors in checks (ignored for eval): {nc_errors}")
     logger.info(f"Errors in checks per llm:")
-    if nc_errors
+    if nc_errors:
         for llm, n in nc_errors_per_llm.items():
             logger.info(f"  {llm}: {n}")
 
