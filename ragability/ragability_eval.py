@@ -304,7 +304,18 @@ def run(config: dict):
         dfout_long_metrics = dfout_long[~dfout_long["metric"].str.endswith(":n")]
         print(dfout_long_metrics.to_string())
 
-
+    # report the total number and number per LLM of query time errors and checking time errors
+    # which we encountered and which were ignored. For the errors per LLM output one line per LLM
+    logger.info(f"Errors in queries (ignored for eval): {n_errors}")
+    logger.info(f"Errors in queries per llm:")
+    if n_errors > 0:
+        for llm, n in n_errors_per_llm.items():
+            logger.info(f"  {llm}: {n}")
+    logger.info(f"Errors in checks (ignored for eval): {nc_errors}")
+    logger.info(f"Errors in checks per llm:")
+    if nc_errors
+        for llm, n in nc_errors_per_llm.items():
+            logger.info(f"  {llm}: {n}")
 
 def main():
     args = get_args()
