@@ -105,6 +105,11 @@ def run(config: dict):
             n_errors_per_llm[llm] += 1
             continue
         for check in q["checks"]:
+            error = check.get("error")
+            if error:
+                nc_errors += 1
+                nc_errors_per_llm[llm] += 1
+                continue
             func = check["func"]
             funcdef = CHECKS.get(func)
             kind = funcdef["kind"]
@@ -121,6 +126,8 @@ def run(config: dict):
                     qid=q["qid"],
                     tags=q["tags"],
                     llm=llm,
+                    func=func,
+                    kind=kind,
                 )
                 # add any non=standard fields from the query to the row
                 for k, v in q.items():
@@ -166,11 +173,24 @@ def run(config: dict):
     for key, df in checkdfs.items():
         kind, metric = key.split(":")
         for llm, llmgroup in df.groupby("llm"):
+            try:
+                score_value = sk.metrics.accuracy_score(llmgroup["target"].values, llmgroup["result"].values)
+            except Exception as e:
+                logger.error(f"Error: {e} in calculating metric {metric} for {llm} in {key}")
+                # print the rows from the df where the result value is None or NaN and make sure all
+                # columns are printed properly! For this, we need to convert each row to a dictionary
+                # of column name / value pairs and print each dictionary in a separate line.
+                for idx, row in llmgroup.iterrows():
+                    # only print the rows where the result is None or NaN
+                    if row["result"] is None or row["result"] != row["result"]:
+                        logger.error(f"Row {idx}: {dict(row)}")
+                # set it to NaN if there is an error
+                score_value = float("nan")
             dfrows.append(dict(
                 group="all",
                 llm=llm,
                 metric=f"{metric}:accuracy",
-                value=sk.metrics.accuracy_score(llmgroup["target"].values, llmgroup["result"].values)
+                value=score_value
             ))
             dfrows.append(dict(
                 group="all",
