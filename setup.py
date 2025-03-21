@@ -57,6 +57,7 @@ setup(
        "ragability_hjson_cat=ragability.ragability_hjson_cat:main",
        "ragability_hjson_info=ragability.ragability_hjson_info:main",
        "ragability_test_llms=ragability.ragability_test_llms:main",
+       "ragability_2tsv=ragability.ragability_2tsv:main",
     ]},
     classifiers=[
         # "Development Status :: 6 - Mature",
