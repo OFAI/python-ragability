@@ -41,55 +41,82 @@ def get_args():
     return args
 
 
+def max_elements(data: List[Dict], keys: List[str|int]):
+    """
+    Get the maximum number of elements in the array identified by the given list of keys that lead to the
+    nested array.
+    """
+    maxn = 0
+    for record in data:
+        # access the nested list or ignore the record if it does not exist
+        val = record
+        for k in keys:
+            if isinstance(val, list):
+                val = val[k]
+            else:
+                val = val.get(k)
+            if val is None:
+                break
+        if val is not None:
+            if isinstance(val, list):
+                maxn = max(maxn, len(val))
+            else:
+                maxn = max(maxn, 1)
+    return maxn
 
 def run(config: dict):
     indata = read_input_file(config["input"])
     logger.info(f"Read {len(indata)} records from {config['input']}")
-    # indata is a list of nested dictionaries where each of the values in the dictionaries could
-    # be a scalar value, a nested dictionary, a scalar value or a list of scalar values or
-    # nested dictionaries. We need to flatten this structure into a list of flat dictionaries where
-    # each dictionary contains only scalar values. We will use a recursive function to do this.
-    # The names use dots to separate nested fields and underscores to separate array indices.
-    # Example:
-    # indata = [ { "a": 1, "b": [2, 3], "c": { "d": 4, "e": 5 }, "e": [{ "f": 6 },{ "f": 7 }] } ]
-    # outdata = [ { "a": 1, "b_0": 2, "b_1": 3, "c.d": 4, "c.e": 5, "e_0.f": 6, "e_1.f": 7 } ]
-    # First we analyse all the nested dictionaries in the list to find all the field names
-    # and the maximum number of elements in any array.
-    # We also need to make sure that none of the text fields contain any new lines or tabs before
-    # we write the tsv file.
-    def analyse(indata):
-        fieldnames = set()
-        maxarraysize = 0
-        for item in indata:
-            for k, v in item.items():
-                fieldnames.add(k)
-                if isinstance(v, list):
-                    maxarraysize = max(maxarraysize, len(v))
-        return fieldnames, maxarraysize
-    # now we actually convert the list of nested dictionaries into a list of flat dictionaries
-    def flatten(indata):
-        fieldnames, maxarraysize = analyse(indata)
-        flatdata = []
-        for item in indata:
-            flatitem = {}
-            for k in fieldnames:
-                v = item.get(k)
-                if isinstance(v, list):
-                    for i, vi in enumerate(v):
-                        flatitem[f"{k}_{i}"] = vi
-                elif isinstance(v, dict):
-                    for k1, v1 in v.items():
-                        flatitem[f"{k}.{k1}"] = v1
-                else:
-                    flatitem[k] = v
-            flatdata.append(flatitem)
-        return flatdata
-    flatdata = flatten(indata)
-    # make sure there are no new lines or tabs in the text fields
-    for item in flatdata:
-        for k, v in item.items():
-            if isinstance(v, str):
-                item[k] = v.replace("\n", " ").replace("\t", " ")
+
+    # For now we only support instances with a single element in the "checks"  field and the pid field
+    maxn_checks = max_elements(indata, ["checks"])
+    if maxn_checks > 1:
+        logger.error(f"Only one element in the 'checks' field is supported for now, but found {maxn_checks}")
+        sys.exit(1)
+    maxn_pids = max_elements(indata, ["checks", 0, "pids"])
+    if maxn_pids > 1:
+        logger.error(f"Only one element in the 'pids' field is supported for now, but found {maxn_pids}")
+        sys.exit(1)
+    TOPFIELDS_SCALAR = ["qid", "tags", "query", "WikiContradict_ID", "reasoning_required_c1c2", "response", "error", "pid", "llm"]
+    CHECKFIELDS = ["cid", "query", "func", "metrics", "pid", "response", "llm", "result", "error", "check_for"]
+    flatdata = []
+    # find the maximum number for "facts"
+    maxn_facts = max_elements(indata, ["facts"])
+    unknownfields = Counter()
+    for record in indata:
+        flatrecord = {}
+        for field in TOPFIELDS_SCALAR:
+            flatrecord[field] = record.get(field, "")
+        # add the facts fields, not all records have the same number of facts
+        facts = record.get("facts")
+        if facts is None:
+            facts = []
+        elif isinstance(facts, str):
+            facts = [facts]
+        for i in range(maxn_facts):
+            if i < len(facts):
+                flatrecord[f"facts_{i}"] = facts[i]
+            else:
+                flatrecord[f"facts_{i}"] = ""
+        check = record.get("checks", [{}])[0]
+        for field in CHECKFIELDS:
+            val = check.get(field, "")
+            if isinstance(val, list):
+                val = ", ".join(val)
+            flatrecord[f"check.{field}"] = val
+        # check if the check dict has any fields not mentioned in CHECKFIELDS, if so, count them using the
+        # name check.{unknownfieldname}
+        for k in check:
+            if k not in CHECKFIELDS:
+                if k not in ["cost"]:
+                    unknownfields[f"check.{k}"] += 1
+        # also check if the top level record has any fields not mentioned in TOPFIELDS_SCALAR
+        for k in record:
+            if k not in TOPFIELDS_SCALAR:
+                if k not in ["checks", "c1xq", "c2xq", "cost", "pids", "facts"]:
+                    unknownfields[k] += 1
+        flatdata.append(flatrecord)
+    # convert to a data frame
     df = pd.DataFrame(flatdata)
     logger.info(f"Converted to dataframe with {df.shape[0]} rows and {df.shape[1]} columns")
     # Now we have the dataframe, we can write it to the output file
@@ -98,6 +125,11 @@ def run(config: dict):
         outputfile = os.path.splitext(config["input"])[0] + ".tsv"
     df.to_csv(outputfile, sep="\t", index=False)
     logger.info(f"Output written to {outputfile}")
+    # print out the unknown fields, if there are any
+    if unknownfields:
+        logger.info("Unknown fields:")
+        for k, v in unknownfields.items():
+            logger.info(f"{k}: {v}")
 
 
 def main():
