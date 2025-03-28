@@ -34,6 +34,8 @@ def get_args():
     """
     parser = argparse.ArgumentParser(description='Convert json/hjson to tsv')
     parser.add_argument('--input', '-i', type=str, help='Input json/hjson file', required=True)
+    parser.add_argument('--all', '-a', action="store_true",
+                        help='Also include fields which are always empty or have the same value in all records', required=False)
     parser.add_argument('--output', '-o', type=str, help='Output tsv file (same as input but with tsv extension)', required=False)
     args_tmp = parser.parse_args()
     args = {}
@@ -118,6 +120,13 @@ def run(config: dict):
         flatdata.append(flatrecord)
     # convert to a data frame
     df = pd.DataFrame(flatdata)
+    # Now find all the fields in flatdata which all have exactly the same value: for each of these fields
+    # log the name and value and remove the field from the dataframe
+    for col in df.columns:
+        if len(df[col].unique()) == 1:
+            logger.info(f"Field {col} has the same value in all records: >>{df[col].iloc[0]}<<")
+            if not config["all"]:
+                df.drop(columns=[col], inplace=True)
     logger.info(f"Converted to dataframe with {df.shape[0]} rows and {df.shape[1]} columns")
     # Now we have the dataframe, we can write it to the output file
     outputfile = config["output"]
