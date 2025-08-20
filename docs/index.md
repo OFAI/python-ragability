@@ -1,7 +1,5 @@
 # python-ragability
 
-*IMPORTANT*: this project is still under development and may change significantly in the near future!
-
 A library and corpus for checking/benchmarking LLMs with regard to properties relevant to their use in RAG 
 systems.
 
@@ -19,12 +17,12 @@ systems.
 * Activate conda environment: `conda activate ragability` 
 * After installation, the following commands are available:
 * `ragability_info` : show the versions of all relevant Python packages installed
-" `ragability-cc-wc1` : convert the wiki-contradict based corpus to ragability format
+* `ragability_cc_wc1` : convert the wiki-contradict based corpus to ragability format
 * `ragability_query` : given an input file with facts and queries, a list of candidate LLMs and a prompt template, produce and output file that contains 
   LLM answers to the queries 
 * `ragability_check` : given a query result file and a judge LLM, evaluate the answers received against the pre-defined answers and create an output file that contains the evaluation scores and meta-information for each example
 * `ragability_eval` : given the data created with `ragability_check`, calculate detailled performance statistics
-* `ragability_hjson_info` : show some infor about the number of entries and keys present in a hjson, json, or jsonl file
+* `ragability_hjson_info` : provides an overview of the major information present in a hjson, json, or jsonl file
 * `ragability_hjson_cat` : concatenate several hjson, json or jsonl files into one hjson or json file
 * `llms_wrapper_test`: for the configured/specified LLMs, test if they are working and returning an answer. This is useful to check a config file and
    test if all the API keys are correctly set and working
@@ -32,9 +30,9 @@ systems.
 
 LLMs currently supported: support is based on the [LiteLLM](https://github.com/BerriAI/litellm) backend via the [llms_wrapper](https://github.com/OFAI/python-llms-wrapper/) package. The supported LLMs are listed [here](https://docs.litellm.ai/docs/providers/)
 
-### Current usage
+### Example usage
 
-Example usage with the converted wiki-contradict dataset:
+with the converted wiki-contradict dataset:
 
 * (optional conversion step, the current converted dataset is already part of the repo): convert the dataset tsv file to ragability format
   * `ragability_cc_wc1 --input corpus/wikicontradict1/Dataset_v0.2_short.tsv --output corpus/wikicontradict1/v0d2.hjson`
